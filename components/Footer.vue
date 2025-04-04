@@ -24,17 +24,10 @@
 </template>
 
 <script setup>
-// import {
-//   GithubIcon,
-//   LinkedinIcon,
-//   TwitterIcon,
-//   MailIcon,
-// } from 'lucide-vue-next';
 // Social media links
 const socials = [
-  { icon: 'GithubIcon', url: 'https://github.com/' },
-  { icon: 'LinkedinIcon', url: 'https://linkedin.com/' },
-  { icon: 'TwitterIcon', url: 'https://twitter.com/' },
-  { icon: 'MailIcon', url: 'mailto:contact@example.com' },
+  { icon: 'GithubIcon', url: 'https://github.com/LarryJunior21' },
+  { icon: 'LinkedinIcon', url: 'https://www.linkedin.com/in/larryjunior2121/' },
+  { icon: 'MailIcon', url: 'mailto:larryjunior21@hotmail.com' },
 ];
 </script>

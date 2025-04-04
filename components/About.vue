@@ -11,15 +11,24 @@
           <h3
             class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4"
           >
-            Who I Am
+            Who am I?
           </h3>
+
           <p class="text-gray-600 dark:text-gray-400 mb-4">
-            I'm a passionate full-stack developer with 5+ years of experience
-            building web applications.
+            I'm a software developer with 5+ years of experience, proficient in
+            front end development
           </p>
           <p class="text-gray-600 dark:text-gray-400">
-            When I'm not coding, you can find me hiking, reading tech blogs, or
-            experimenting with new technologies.
+            I prioritise clean and organised code in my work.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400">
+            Collaboration is one of my strengths, and I value teamwork as it
+            leads to successful project outcomes.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400">
+            I've worked in both large and small teams on a variety of projects
+            and have experience in doing functional work and dealing with the
+            business related part of the project.
           </p>
         </div>
         <div class="md:w-1/2">
@@ -50,19 +59,22 @@
 const skills = [
   'JavaScript',
   'TypeScript',
+  'PHP',
+  'Angular',
   'Vue.js',
   'Nuxt.js',
+  'Next.js',
   'React',
+  'React Native',
   'Node.js',
-  'Express',
+  'Adobe E-Commerce',
   'MongoDB',
   'PostgreSQL',
   'HTML/CSS',
   'Tailwind CSS',
   'Git',
   'Docker',
-  'AWS',
-  'CI/CD',
   'RESTful APIs',
+  'GraphQL',
 ];
 </script>

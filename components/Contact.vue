@@ -80,7 +80,7 @@
   </section>
 </template>
 
-<script>
+<script setup>
 // Contact form
 const contactForm = ref({
   name: '',
@@ -89,8 +89,8 @@ const contactForm = ref({
   message: '',
 });
 
+// TODO email service
 const submitForm = () => {
-  // In a real application, you would send the form data to your backend
   console.log('Form submitted:', contactForm.value);
   alert('Thank you for your message! I will get back to you soon.');
   // Reset form

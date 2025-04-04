@@ -12,10 +12,10 @@
           :key="index"
           class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition"
         >
-          <img
-            :src="project.image"
+          <component
+            :is="project.image"
             :alt="project.title"
-            class="w-full h-48 object-cover"
+            class="w-full h-48 pt-6 object-cover"
           />
           <div class="p-6">
             <h3
@@ -63,7 +63,7 @@ const projects = [
   {
     title: 'E-Commerce Platform',
     description: 'A full-featured e-commerce platform with product management.',
-    image: '/placeholder.svg?height=300&width=500',
+    image: 'GithubIcon',
     technologies: ['Vue.js', 'Nuxt.js', 'Node.js', 'MongoDB'],
     demo: '#',
     github: '#',
@@ -71,7 +71,7 @@ const projects = [
   {
     title: 'Task Management App',
     description: 'A collaborative task management app with real-time updates.',
-    image: '/placeholder.svg?height=300&width=500',
+    image: 'GithubIcon',
     technologies: ['React', 'Firebase', 'Tailwind CSS'],
     demo: '#',
     github: '#',
@@ -79,7 +79,7 @@ const projects = [
   {
     title: 'Weather Dashboard',
     description: 'A weather application that displays forecast data.',
-    image: '/placeholder.svg?height=300&width=500',
+    image: 'GithubIcon',
     technologies: ['Vue.js', 'OpenWeather API', 'Chart.js'],
     demo: '#',
     github: '#',
