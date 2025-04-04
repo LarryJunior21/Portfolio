@@ -12,7 +12,7 @@
           <h2
             class="text-2xl md:text-3xl font-medium text-gray-700 dark:text-gray-300 mb-6"
           >
-            Front End Developer
+            Full Stack Developer
           </h2>
           <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
             I build modern web applications with a focus on performance,
