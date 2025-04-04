@@ -1,10 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <TheHeader />
+    <Header />
     <main>
       <slot />
     </main>
-    <TheFooter />
+    <Footer />
   </div>
 </template>
-
