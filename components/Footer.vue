@@ -2,11 +2,16 @@
   <footer class="py-8 bg-gray-900 text-gray-300">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p class="text-lg font-semibold">DevPortfolio</p>
-          <p class="text-sm">
-            © {{ new Date().getFullYear() }} All Rights Reserved
-          </p>
+        <div class="flex mb-4 md:mb-0">
+          <div class="block border-r-1 pr-2 mr-2">
+            <p class="text-lg font-semibold">Larry Junior | Developer</p>
+            <p class="text-sm">
+              © {{ new Date().getFullYear() }} All Rights Reserved
+            </p>
+          </div>
+          <div class="flex mb-4 md:mb-0 self-center items-center">
+            Built with &nbsp;<img class="contain-content w-20 bg-gray-100 dark:bg-gray-600 rounded-md p-2" src="~/assets/images/nuxt_logo.png" alt="Nuxt Logo" />
+          </div>
         </div>
         <div class="flex space-x-4">
           <a

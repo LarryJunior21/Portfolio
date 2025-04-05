@@ -37,6 +37,7 @@
             </div>
             <div class="flex space-x-3">
               <a
+                v-if="project?.demo"
                 :href="project.demo"
                 class="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center"
               >
@@ -69,12 +70,11 @@ const projects = [
     github: '#',
   },
   {
-    title: 'Task Management App',
+    title: 'Card game | Truco',
     description: 'A collaborative task management app with real-time updates.',
     image: 'GithubIcon',
-    technologies: ['React', 'Firebase', 'Tailwind CSS'],
-    demo: '#',
-    github: '#',
+    technologies: ['React Native', 'JavaScript', 'TypeScript', 'Node.js', 'Express'],
+    github: 'https://github.com/LarryJunior21/trucoApp',
   },
   {
     title: 'Weather Dashboard',
