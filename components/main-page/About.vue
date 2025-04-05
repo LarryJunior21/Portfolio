@@ -18,14 +18,14 @@
             I'm a software developer with 5+ years of experience, proficient in
             front end development
           </p>
-          <p class="text-gray-600 dark:text-gray-400">
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
             I prioritise clean and organised code in my work.
           </p>
-          <p class="text-gray-600 dark:text-gray-400">
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
             Collaboration is one of my strengths, and I value teamwork as it
             leads to successful project outcomes.
           </p>
-          <p class="text-gray-600 dark:text-gray-400">
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
             I've worked in both large and small teams on a variety of projects
             and have experience in doing functional work and dealing with the
             business related part of the project.
