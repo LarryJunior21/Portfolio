@@ -60,7 +60,7 @@
             </div>
             <div>
               <h3 class="font-bold">Phone</h3>
-              <p class="text-muted-foreground">+1 (555) 123-4567</p>
+              <p class="text-muted-foreground">+61 424201363</p>
             </div>
           </div>
 

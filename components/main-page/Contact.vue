@@ -81,6 +81,14 @@
 </template>
 
 <script setup>
+import emailjs from '@emailjs/browser';
+
+const config = useRuntimeConfig();
+
+const publicKey = config.public.EMAILJS_PUBLIC_KEY;
+const serviceId = config.public.EMAILJS_SERVICE_ID;
+const templateId = config.public.EMAILJS_TEMPLATE_ID;
+
 // Contact form
 const contactForm = ref({
   name: '',
@@ -89,10 +97,25 @@ const contactForm = ref({
   message: '',
 });
 
-// TODO email service
 const submitForm = () => {
-  console.log('Form submitted:', contactForm.value);
-  alert('Thank you for your message! I will get back to you soon.');
+  try {
+    emailjs.send(
+      serviceId,
+      templateId,
+      contactForm.value,
+      {
+        publicKey,
+      },
+    );
+  } catch (err) {
+    if (err instanceof EmailJSResponseStatus) {
+      console.err('EMAILJS FAILED...', err);
+      return;
+    }
+
+    console.err('Please try again later', err);
+  }
+
   // Reset form
   contactForm.value = {
     name: '',
