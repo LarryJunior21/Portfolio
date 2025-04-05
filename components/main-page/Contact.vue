@@ -1,11 +1,16 @@
 <template>
   <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-800">
     <div class="container mx-auto px-4">
-      <h2
-        class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12"
+      <div
+        class="font-bold text-center text-gray-900 dark:text-white mb-12"
       >
+      <h2 class="text-3xl">
         Get In Touch
       </h2>
+      <h4>
+        * Please check your spam folder if no e-mail is received
+      </h4>
+    </div>
       <div class="max-w-2xl mx-auto">
         <form @submit.prevent="submitForm" class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

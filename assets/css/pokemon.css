@@ -1,0 +1,44 @@
+.pokemon-title {
+font-family: 'Pokemon Solid', sans-serif;
+color: #ffcb05; /* Pokemon yellow */
+-webkit-text-stroke: 1px #2a75bb; /* Pokemon blue outline */
+letter-spacing: 2px;
+text-shadow: 2px 2px 0 #3c5aa6; /* Pokemon blue shadow */
+}
+
+.stroked-text {
+-webkit-text-stroke: 0.3px white;
+/* Optional for better browser support */
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Hide overflow content when collapsed */
+.collapsable-div {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .collapsable-div > .p-6 {
+    padding-top: 0;  /* Remove top padding on initial collapse state */
+    padding-bottom: 0;  /* Remove bottom padding on initial collapse state */
+  }
+  
+  .collapsable-div[data-collapsed="false"] {
+    max-height: 1000px;  /* A large value for expanded content */
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }

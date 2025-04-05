@@ -1,5 +1,5 @@
 export const useNavigation = () => {
-  const title = 'Welcome to my Portfolio';
+  const title = 'Welcome to my portfolio';
 
   const navigation = ref([
     { name: 'Home', type: 'link', href: '/#home' },
