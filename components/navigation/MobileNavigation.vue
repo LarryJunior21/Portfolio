@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="mobileMenuOpen"
-    class="md:hidden absolute w-full bg-white dark:bg-gray-800 shadow-md"
+    class="md:hidden absolute top-[100%] right-0 w-[180px] h-screen bg-white dark:bg-gray-800 shadow-md"
   >
     <div class="container mx-auto px-4 py-2">
       <a
@@ -9,7 +9,7 @@
         :key="item.name"
         :href="item.href"
         @click="item.type === 'dropdown' ? toggleDropdown(item) : null"
-        class="py-2 cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
+        class="py-2 cursor-pointer text-left text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
       >
         {{ item.name }}
         <svg
@@ -26,18 +26,15 @@
             clip-rule="evenodd"
           />
         </svg>
-        <transition
-          name="slide-fade"
-          appear
-        >
+        <transition name="slide-fade" appear>
           <div
             v-show="dropdownOpen"
             class="absolute bottom-0 left-1/5 top-4/5 w-40 bg-white dark:bg-gray-700 shadow-2xl rounded-md py-2 overflow-hidden h-fit"
           >
-            <NuxtLink 
+            <NuxtLink
               v-for="subItem in item.items"
               class="block px-4 py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-              :key="subItem.name" 
+              :key="subItem.name"
               :to="subItem.href"
             >
               {{ subItem.name }}
@@ -50,10 +47,6 @@
 </template>
 
 <script setup>
-  const {
-    navigation,
-    mobileMenuOpen,
-    dropdownOpen,
-    toggleDropdown,
-  } = useNavigation();
+const { navigation, mobileMenuOpen, dropdownOpen, toggleDropdown } =
+  useNavigation();
 </script>

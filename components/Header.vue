@@ -2,7 +2,7 @@
   <nav
     class="fixed w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm z-10 py-4 shadow-sm"
   >
-    <div class="container mx-auto px-4 flex justify-between items-center">
+    <div class="pl-4 mx-5 flex justify-between items-center">
       <div class="text-xl font-bold text-gray-800 dark:text-white">
         {{ title }}
       </div>
@@ -12,7 +12,7 @@
 
       <button
         @click="toggleMobileMenu"
-        class="md:hidden text-gray-600 dark:text-gray-300"
+        class="md:hidden z-50 text-gray-600 dark:text-gray-300"
       >
         <MenuIcon v-if="!mobileMenuOpen" class="h-6 w-6" />
         <XIcon v-else class="h-6 w-6" />
@@ -25,9 +25,5 @@
 </template>
 
 <script setup>
-  const {
-    title,
-    mobileMenuOpen,
-    toggleMobileMenu
-  } = useNavigation();
+const { title, mobileMenuOpen, toggleMobileMenu } = useNavigation();
 </script>
