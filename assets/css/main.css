@@ -60,14 +60,3 @@
 html {
   scroll-behavior: smooth;
 }
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: transform 0.1s ease, opacity 0.1s ease;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(-20px);
-  opacity: 0;
-}

@@ -2,7 +2,8 @@
   <nav
     class="fixed w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm z-10 py-4 shadow-sm"
   >
-    <div class="pl-4 mx-5 flex justify-between items-center">
+    <!-- Add horizontal padding if is desktop view -->
+    <div class="pl-4 lg:px-4 mx-5 flex justify-between items-center">
       <div class="text-xl font-bold text-gray-800 dark:text-white">
         {{ title }}
       </div>

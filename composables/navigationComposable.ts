@@ -42,6 +42,11 @@ export const useNavigation = () => {
     menuTransitioning.value = false; // Transition finished
   };
 
+  const unToggleDropdownAfterClick = (href: string = '') => {
+    dropdownOpen.value = false;
+    if (href !== '') location.href = href;
+  };
+
   return {
     title,
     navigation,
@@ -50,5 +55,6 @@ export const useNavigation = () => {
     toggleDropdown,
     toggleMobileMenu,
     afterLeave,
+    unToggleDropdownAfterClick,
   };
 };
