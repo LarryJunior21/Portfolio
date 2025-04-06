@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
 @tailwind utilities;
 
 @layer base {
@@ -50,8 +50,8 @@
 }
 
 @font-face {
-  font-family: "Pokemon Solid";
-  src: url("/assets/fonts/pokemon-solid.ttf") format("truetype");
+  font-family: 'Pokemon Solid';
+  src: url('/assets/fonts/pokemon-solid.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

@@ -9,13 +9,27 @@
 
       <!-- Desktop menu -->
       <navigation-DesktopNavigation />
-
       <button
         @click="toggleMobileMenu"
-        class="md:hidden z-50 text-gray-600 dark:text-gray-300"
+        class="md:hidden z-50 text-gray-600 dark:text-gray-300 relative w-10 h-10"
       >
-        <MenuIcon v-if="!mobileMenuOpen" class="h-6 w-6" />
-        <XIcon v-else class="h-6 w-6" />
+        <!-- Transition for MenuIcon to XIcon -->
+        <Transition name="rotate-fade" @after-leave="afterLeave" mode="out-in">
+          <MenuIcon
+            v-show="!menuTransitioning && !mobileMenuOpen"
+            key="menu"
+            class="h-6 w-6 absolute top-2 transition-opacity duration-300"
+          />
+        </Transition>
+
+        <!-- Transition for XIcon to MenuIcon -->
+        <Transition name="fade" @after-leave="afterLeave" mode="out-in">
+          <XIcon
+            v-show="!menuTransitioning && mobileMenuOpen"
+            key="x"
+            class="h-6 w-6 absolute top-2 transition-opacity duration-300"
+          />
+        </Transition>
       </button>
     </div>
 
@@ -25,5 +39,13 @@
 </template>
 
 <script setup>
-const { title, mobileMenuOpen, toggleMobileMenu } = useNavigation();
+const {
+  title,
+  mobileMenuOpen,
+  menuTransitioning,
+  toggleMobileMenu,
+  afterLeave,
+} = useNavigation();
 </script>
+
+<style scoped src="~/assets/css/hamburger-menu-rotation.css" />

@@ -1,6 +1,8 @@
 export const useNavigation = () => {
+  // Header title
   const title = 'Welcome to my portfolio';
 
+  // Navigation Options
   const navigation = ref([
     { name: 'Home', type: 'link', href: '/#home' },
     { name: 'About', type: 'link', href: '/#about' },
@@ -18,17 +20,27 @@ export const useNavigation = () => {
     },
   ]);
 
+  const menuTransitioning = useState('menuTransitioning', () => false);
   const mobileMenuOpen = useState('mobileMenuOpen', () => false); // Default value is false
   const dropdownOpen = useState('dropdownOpen', () => false); // For dropdown state
 
   const toggleDropdown = (item: any) => {
     item.isOpen = dropdownOpen.value = !dropdownOpen.value;
-  }
+  };
 
+  // Toggle mobile menu state, but avoid toggling immediately
   const toggleMobileMenu = () => {
-    mobileMenuOpen.value = !mobileMenuOpen.value;
-    dropdownOpen.value = false;
-  }
+    menuTransitioning.value = true; // Start transition
+    setTimeout(() => {
+      mobileMenuOpen.value = !mobileMenuOpen.value; // Change state after transition delay
+      dropdownOpen.value = false;
+    }, 100);
+  };
+
+  // After the transition leaves (when the MenuIcon disappears), we can update the state
+  const afterLeave = () => {
+    menuTransitioning.value = false; // Transition finished
+  };
 
   return {
     title,
@@ -37,5 +49,6 @@ export const useNavigation = () => {
     dropdownOpen,
     toggleDropdown,
     toggleMobileMenu,
-  }
-}
+    afterLeave,
+  };
+};
