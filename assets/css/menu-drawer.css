@@ -1,0 +1,35 @@
+/* Drawer animation */
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: transform 0.3s ease-out;
+}
+
+.drawer-enter-from,
+.drawer-leave-to {
+  transform: translateX(100%);
+}
+
+.drawer-enter-to,
+.drawer-leave-from {
+  transform: translateX(0);
+}
+
+/* Dropdown drawer animation */
+.drawer-down-enter-active,
+.drawer-down-leave-active {
+  transition: all 0.3s ease;
+  max-height: 200px; /* Adjust based on your content */
+}
+
+.drawer-down-enter-from,
+.drawer-down-leave-to {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.drawer-down-enter-to,
+.drawer-down-leave-from {
+  max-height: 200px;
+  opacity: 1;
+}

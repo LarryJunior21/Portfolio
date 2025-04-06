@@ -1,9 +1,19 @@
-import { defineNuxtPlugin } from '#app';
-import * as lucideVue from 'lucide-vue-next';
+import { defineNuxtPlugin } from "#app";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  MailIcon,
+  MenuIcon,
+  XIcon,
+  ExternalLinkIcon,
+} from "lucide-vue-next";
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Register all lucide icons globally
-  for (const [key, component] of Object.entries(lucideVue)) {
-    nuxtApp.vueApp.component(key, component as any);
-  }
+  nuxtApp.vueApp.component("GithubIcon", GithubIcon);
+  nuxtApp.vueApp.component("LinkedinIcon", LinkedinIcon);
+  nuxtApp.vueApp.component("MailIcon", MailIcon);
+  nuxtApp.vueApp.component("MenuIcon", MenuIcon);
+  nuxtApp.vueApp.component("XIcon", XIcon);
+  nuxtApp.vueApp.component("ExternalLinkIcon", ExternalLinkIcon);
 });
