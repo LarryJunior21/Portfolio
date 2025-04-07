@@ -4,9 +4,11 @@
   >
     <!-- Add horizontal padding if is desktop view -->
     <div class="pl-4 lg:px-4 mx-5 flex justify-between items-center">
-      <div class="text-xl font-bold text-gray-800 dark:text-white">
+      <h1
+        class="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-200 bg-transparent h-full text-shadow mr-4"
+      >
         {{ title }}
-      </div>
+      </h1>
 
       <!-- Desktop menu -->
       <navigation-DesktopNavigation />

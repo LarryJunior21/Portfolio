@@ -9,11 +9,11 @@
 
       <div>
         <!-- Card Preview Section -->
-        <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center justify-center mb-8 flex-col md:flex-row">
           <!-- Left Arrow -->
           <button
             @click="prevCardType"
-            class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4"
+            class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 hidden md:block"
           >
             <ChevronLeft class="h-8 w-8 text-gray-700" />
           </button>
@@ -60,33 +60,35 @@
               ref="wrapper"
               class="absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px]"
             >
+              
               <span
                 ref="text"
                 :style="{
                   transform: `scaleX(${scale})`,
                   transformOrigin: 'left',
                 }"
-                class="block font-bold text-black text-left whitespace-nowrap self-end"
+                class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
               >
                 {{ pokemonName || "Name" }}
               </span>
             </div>
+            
 
             <!-- HP -->
             <div
               v-if="isImageLoaded"
-              class="flex absolute top-[1.2rem] text-black right-13 stroked-text"
+              class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white"
             >
               <div class="font-bold self-end text-[10px]">hp</div>
               <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
             </div>
-
             <!-- Attack -->
             <div
               v-if="isImageLoaded"
-              class="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 w-[80%] text-center"
+              class="absolute bottom-[20%] left-1/2 transform text-gray-900 -translate-x-1/2 w-[80%] text-center"
+              :class="{ 'text-white': currentCardTypeIndex === 6 }"
             >
-              <div class="flex items-center justify-between mb-1">
+              <div class="flex items-center justify-between mb-1" >
                 <img
                   v-if="energyType"
                   :src="energyType"
@@ -105,20 +107,29 @@
                 </div>
               </div>
               <p
-                class="w-[285px] break-words h-13 text-xs text-left text-black"
+                class="w-[285px] break-words h-13 text-xs text-left"
               >
                 {{ attackDescription }}
               </p>
             </div>
           </div>
 
-          <!-- Right Arrow -->
-          <button
-            @click="nextCardType"
-            class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 ml-4"
-          >
-            <ChevronRight class="h-8 w-8 text-gray-700" />
-          </button>
+          <div class="flex mt-4 md:block md:m-0">
+            <button
+              @click="prevCardType"
+              class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 block md:hidden"
+            >
+              <ChevronLeft class="h-8 w-8 text-gray-700" />
+            </button>
+
+            <!-- Right Arrow -->
+            <button
+              @click="nextCardType"
+              class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 ml-4"
+            >
+              <ChevronRight class="h-8 w-8 text-gray-700" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -202,24 +213,6 @@
             </div>
 
             <!-- Collapsible Div with animated unfold/roll-down effect -->
-
-            <!-- <UCollapsible class="flex flex-col gap-2 w-48">
-              <UButton
-                class="group"
-                label="Open"
-                color="neutral"
-                variant="subtle"
-                trailing-icon="i-lucide-chevron-down"
-                :ui="{
-                  trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
-                }"
-                block
-              />
-
-              <template #content>
-              </template>
-            </UCollapsible> -->
-
             <div
               ref="collapsible"
               class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 ease-in-out mt-2"
@@ -227,7 +220,7 @@
             >
               <div class="p-6">
                 <!-- Attack Section -->
-                <div class="sm:col-span-2">
+                <div class="sm:col-span-2 text-gray-700">
                   <!-- Attack Name -->
                   <div>
                     <label
@@ -283,7 +276,7 @@
                         >Damage</label
                       >
                       <div
-                        class="flex flex-row items-center gap-4 mt-1"
+                        class="flex flex-col items-start md:flex-row md:items-center gap-4 mt-1"
                         :class="{
                           'pointer-events-none opacity-25': energyType === '',
                         }"

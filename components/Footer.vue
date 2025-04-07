@@ -9,8 +9,11 @@
               © {{ new Date().getFullYear() }} All Rights Reserved
             </p>
           </div>
-          <div class="flex mb-4 md:mb-0 self-center items-center">
-            Built with &nbsp;<img
+          <div
+            class="flex flex-col sm:flex-row md:mb-0 self-center items-center gap-0.5 sm:gap-2"
+          >
+            <span>Built with</span>
+            <img
               class="contain-content w-20 bg-gray-100 dark:bg-gray-600 rounded-md p-2"
               src="~/assets/images/nuxt_logo.png"
               alt="Nuxt Logo"
@@ -35,8 +38,8 @@
 <script setup>
 // Social media links
 const socials = [
-  { icon: 'GithubIcon', url: 'https://github.com/LarryJunior21' },
-  { icon: 'LinkedinIcon', url: 'https://www.linkedin.com/in/larryjunior2121/' },
-  { icon: 'MailIcon', url: 'mailto:larryjunior21@hotmail.com' },
+  { icon: "GithubIcon", url: "https://github.com/LarryJunior21" },
+  { icon: "LinkedinIcon", url: "https://www.linkedin.com/in/larryjunior2121/" },
+  { icon: "MailIcon", url: "mailto:larryjunior21@hotmail.com" },
 ];
 </script>
