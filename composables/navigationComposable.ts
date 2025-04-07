@@ -1,31 +1,41 @@
+import { useState, useRoute } from 'nuxt/app';
+import { ref } from 'vue';
+
 export const useNavigation = () => {
   // Header title
-  const title = "<Welcome/>";
+  const title = '<Welcome/>';
 
   // Navigation Options
   const navigation = ref([
-    { name: "Home", type: "link", href: "/#home" },
-    { name: "About", type: "link", href: "/#about" },
-    { name: "Projects", type: "link", href: "/#projects" },
-    { name: "Contact", type: "link", href: "/#contact" },
+    { name: 'Home', type: 'link', href: '/#home' },
+    { name: 'About', type: 'link', href: '/#about' },
+    { name: 'Projects', type: 'link', href: '/#projects' },
+    { name: 'Contact', type: 'link', href: '/#contact' },
     {
-      name: "Examples",
-      type: "dropdown",
+      name: 'Examples',
+      type: 'dropdown',
       isOpen: false,
-      items: [{ name: "PokeGen", href: "/poke-gen" }],
+      items: [{ name: 'PokeGen', href: '/poke-gen' }],
     },
   ]);
 
-  const menuTransitioning = useState("menuTransitioning", () => false);
-  const mobileMenuOpen = useState("mobileMenuOpen", () => false); // Default value is false
-  const dropdownOpen = useState("dropdownOpen", () => false); // For dropdown state
+  const menuTransitioning = useState('menuTransitioning', () => false);
+  const mobileMenuOpen = useState('mobileMenuOpen', () => false); // Default value is false
+  const dropdownOpen = useState('dropdownOpen', () => false); // For dropdown state
+  const route = useRoute();
 
   const toggleDropdown = (item: any) => {
     item.isOpen = dropdownOpen.value = !dropdownOpen.value;
   };
 
   // Toggle mobile menu state, but avoid toggling immediately
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = (isButtonClicked: boolean = false) => {
+    /* 
+      The close button is like a dummy because the MobileNavigation already handles closing when clicking 
+      outside the view
+    */
+    if (isButtonClicked && mobileMenuOpen.value === true) return;
+
     menuTransitioning.value = true; // Start transition
     setTimeout(() => {
       mobileMenuOpen.value = !mobileMenuOpen.value; // Change state after transition delay
@@ -38,9 +48,14 @@ export const useNavigation = () => {
     menuTransitioning.value = false; // Transition finished
   };
 
-  const unToggleDropdownAfterClick = (href: string = "") => {
+  const unToggleDropdownAfterClick = (href: string = '') => {
     dropdownOpen.value = false;
-    if (href !== "") location.href = href;
+    if (href !== '') location.href = href;
+  };
+
+  // Is simple logic but it's more to remove logic from html and make it reusable between components
+  const isHomePage = (): boolean => {
+    return route.path === '/';
   };
 
   return {
@@ -52,5 +67,6 @@ export const useNavigation = () => {
     toggleMobileMenu,
     afterLeave,
     unToggleDropdownAfterClick,
+    isHomePage,
   };
 };

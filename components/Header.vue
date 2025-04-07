@@ -4,16 +4,19 @@
   >
     <!-- Add horizontal padding if is desktop view -->
     <div class="pl-4 lg:px-4 mx-5 flex justify-between items-center">
-      <h1
-        class="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-200 bg-transparent h-full text-shadow mr-4"
-      >
-        {{ title }}
-      </h1>
+      <a href="/#home">
+        <h1
+          class="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-200 bg-transparent h-full text-shadow mr-4"
+        >
+          {{ title }}
+        </h1>
+      </a>
 
       <!-- Desktop menu -->
       <navigation-DesktopNavigation />
+      <!-- Send true as a parameter so the function checks the button was clicked and not the outside drawer -->
       <button
-        @click="toggleMobileMenu"
+        @click="toggleMobileMenu(true)"
         class="md:hidden z-50 text-gray-600 dark:text-gray-300 relative w-10 h-10"
       >
         <!-- Transition for MenuIcon to XIcon -->
