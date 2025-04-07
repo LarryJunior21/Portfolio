@@ -14,10 +14,19 @@
           <button
             @click="prevCardType"
             class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 hidden md:block"
+            :style="{
+              pointerEvents:
+                (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                  ? 'none'
+                  : 'auto',
+            }"
           >
-            <ChevronLeft class="h-8 w-8 text-gray-700" />
+            <span
+              v-if="(!isImageLoaded && buttonClicked === 'prev') || isFirstLoad"
+              class="loading loading-spinner h-8 w-8 text-gray-700"
+            ></span>
+            <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
           </button>
-
           <!-- Card Preview -->
           <div class="relative w-90 h-125" ref="cardPreview">
             <NuxtImg
@@ -25,12 +34,16 @@
               :src="cardTypes[currentCardTypeIndex]"
               alt="image"
               :custom="true"
+              :key="cardTypes[currentCardTypeIndex]"
               v-slot="{ src, isLoaded, imgAttrs }"
+              loading="lazy"
+              preload
             >
               <!-- Update the flag localy to use in other components -->
               <div v-show="false">{{ (isImageLoaded = isLoaded) }}</div>
+
               <!-- Show the actual image when loaded -->
-              <img v-if="isLoaded" v-bind="imgAttrs" :src="src" />
+              <img v-if="!isFirstLoad" v-bind="imgAttrs" :src="src" />
 
               <!-- Show a placeholder while loading -->
               <img
@@ -40,12 +53,6 @@
                 alt="placeholder"
               />
             </NuxtImg>
-            <!-- Card Background -->
-            <!-- <img
-              
-              alt="Pokemon card background"
-            /> -->
-
             <!-- Pokemon Image -->
             <div
               v-if="pokemonImage"
@@ -114,16 +121,40 @@
             <button
               @click="prevCardType"
               class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 block md:hidden"
+              :style="{
+                pointerEvents:
+                  (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                    ? 'none'
+                    : 'auto',
+              }"
             >
-              <ChevronLeft class="h-8 w-8 text-gray-700" />
+              <span
+                v-if="
+                  (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
+                "
+                class="loading loading-spinner h-8 w-8 text-gray-700"
+              ></span>
+              <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
             </button>
 
             <!-- Right Arrow -->
             <button
               @click="nextCardType"
               class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 ml-4"
+              :style="{
+                pointerEvents:
+                  (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
+                    ? 'none'
+                    : 'auto',
+              }"
             >
-              <ChevronRight class="h-8 w-8 text-gray-700" />
+              <span
+                v-if="
+                  (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                "
+                class="loading loading-spinner h-8 w-8 text-gray-700"
+              ></span>
+              <ChevronRight v-else class="h-8 w-8 text-gray-700" />
             </button>
           </div>
         </div>
@@ -367,7 +398,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, nextTick, computed } from 'vue';
+import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import html2canvas from 'html2canvas-pro';
 
@@ -410,10 +441,18 @@ const energyCost = ref('');
 const attackDescription = ref('');
 const cardPreview = ref(null);
 const attackName = ref('');
+const buttonClicked = ref('');
 
 const wrapper = ref<HTMLElement | null>(null);
 const text = ref<HTMLElement | null>(null);
 const scale = ref(1);
+const isFirstLoad = ref(true);
+
+onBeforeMount(() => {
+  if (isFirstLoad.value) {
+    isFirstLoad.value = false; // Set to false after the first load
+  }
+});
 
 const Xtype = `
 <svg
@@ -532,11 +571,15 @@ const changeEnergy = (newValue: string) => {
 
 // Navigation functions
 const nextCardType = () => {
+  buttonClicked.value = 'next';
+
   currentCardTypeIndex.value =
     (currentCardTypeIndex.value + 1) % cardTypes.value.length;
 };
 
 const prevCardType = () => {
+  buttonClicked.value = 'prev';
+
   currentCardTypeIndex.value =
     (currentCardTypeIndex.value - 1 + cardTypes.value.length) %
     cardTypes.value.length;
