@@ -43,7 +43,7 @@
               <div v-show="false">{{ (isImageLoaded = isLoaded) }}</div>
 
               <!-- Show the actual image when loaded -->
-              <img v-if="!isFirstLoad" v-bind="imgAttrs" :src="src" />
+              <img v-if="isImageLoaded" v-bind="imgAttrs" :src="src" />
 
               <!-- Show a placeholder while loading -->
               <img
