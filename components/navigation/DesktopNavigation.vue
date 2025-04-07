@@ -4,19 +4,20 @@
       <a
         v-if="item.type === 'link'"
         @click.prevent="unToggleDropdownAfterClick(item.href)"
-        class="text-gray-600 cursor-pointer hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition"
+        class="group relative inline-block cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all"
       >
         {{ item.name }}
+        <span
+          class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-emerald-500 transition-all duration-300 group-hover:w-full"
+        ></span>
       </a>
       <a
         v-else-if="item.type === 'dropdown'"
         @click.prevent="toggleDropdown"
-        class="py-2 cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
+        class="group relative inline-flex items-center cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all"
       >
         {{ item.name }}
-        <!-- DROPDOWN -->
         <svg
-          v-if="item.type === 'dropdown'"
           class="h-4 w-4 ml-1 relative top-0.5 transition-transform duration-300"
           :class="dropdownOpen ? '-rotate-90' : 'rotate-90'"
           xmlns="http://www.w3.org/2000/svg"
@@ -29,16 +30,27 @@
             clip-rule="evenodd"
           />
         </svg>
+
+        <!-- Animated underline -->
+        <span
+          class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-emerald-500 transition-all duration-300 group-hover:w-full"
+        ></span>
       </a>
+
       <transition name="slide-fade" appear>
         <div v-if="dropdownOpen" class="flex">
           <NuxtLink
             v-for="subItem in item.items"
-            class="block px-4 py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:underline cursor-pointer"
             :key="subItem.name"
+            class="group relative inline-block px-4 text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-200 bg-transparent h-full text-shadow cursor-pointer"
             @click.prevent="unToggleDropdownAfterClick(subItem.href)"
           >
             {{ subItem.name }}
+
+            <!-- Animated underline -->
+            <span
+              class="absolute left-0 bottom-0 w-full h-[2px] bg-emerald-500 scale-x-0 transition-all duration-300 group-hover:scale-x-65"
+            ></span>
           </NuxtLink>
         </div>
       </transition>
@@ -54,7 +66,7 @@ const { navigation, dropdownOpen, toggleDropdown, unToggleDropdownAfterClick } =
 <style scoped>
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: transform 0.1s ease, opacity 0.1s ease;
+  transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
 .slide-fade-enter-from,

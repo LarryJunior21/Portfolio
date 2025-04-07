@@ -1,28 +1,24 @@
 export const useNavigation = () => {
   // Header title
-  const title = 'Welcome to my portfolio';
+  const title = "<Welcome/>";
 
   // Navigation Options
   const navigation = ref([
-    { name: 'Home', type: 'link', href: '/#home' },
-    { name: 'About', type: 'link', href: '/#about' },
-    { name: 'Projects', type: 'link', href: '/#projects' },
-    { name: 'Contact', type: 'link', href: '/#contact' },
+    { name: "Home", type: "link", href: "/#home" },
+    { name: "About", type: "link", href: "/#about" },
+    { name: "Projects", type: "link", href: "/#projects" },
+    { name: "Contact", type: "link", href: "/#contact" },
     {
-      name: 'Examples',
-      type: 'dropdown',
+      name: "Examples",
+      type: "dropdown",
       isOpen: false,
-      items: [
-        { name: 'Generate your pokemon card', href: '/poke-gen' },
-        { name: 'Example 2', href: '#example-2' },
-        { name: 'Example 3', href: '#example-3' },
-      ],
+      items: [{ name: "PokeGen", href: "/poke-gen" }],
     },
   ]);
 
-  const menuTransitioning = useState('menuTransitioning', () => false);
-  const mobileMenuOpen = useState('mobileMenuOpen', () => false); // Default value is false
-  const dropdownOpen = useState('dropdownOpen', () => false); // For dropdown state
+  const menuTransitioning = useState("menuTransitioning", () => false);
+  const mobileMenuOpen = useState("mobileMenuOpen", () => false); // Default value is false
+  const dropdownOpen = useState("dropdownOpen", () => false); // For dropdown state
 
   const toggleDropdown = (item: any) => {
     item.isOpen = dropdownOpen.value = !dropdownOpen.value;
@@ -42,9 +38,9 @@ export const useNavigation = () => {
     menuTransitioning.value = false; // Transition finished
   };
 
-  const unToggleDropdownAfterClick = (href: string = '') => {
+  const unToggleDropdownAfterClick = (href: string = "") => {
     dropdownOpen.value = false;
-    if (href !== '') location.href = href;
+    if (href !== "") location.href = href;
   };
 
   return {

@@ -1,16 +1,10 @@
 <template>
   <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-800">
     <div class="container mx-auto px-4">
-      <div
-        class="font-bold text-center text-gray-900 dark:text-white mb-12"
-      >
-      <h2 class="text-3xl">
-        Get In Touch
-      </h2>
-      <h4>
-        * Please check your spam folder if no e-mail is received
-      </h4>
-    </div>
+      <div class="font-bold text-center text-gray-900 dark:text-white mb-12">
+        <h2 class="text-3xl">Get In Touch</h2>
+        <h4>* Please check your spam folder if no e-mail is received</h4>
+      </div>
       <div class="max-w-2xl mx-auto">
         <form @submit.prevent="submitForm" class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -83,10 +77,14 @@
       </div>
     </div>
   </section>
+  <reusable-Modal
+    title="Email sent"
+    message="Thank you for your e-mail! I'll do my best to reply as soon as possible!"
+  />
 </template>
 
 <script setup>
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 
 const config = useRuntimeConfig();
 
@@ -96,37 +94,32 @@ const templateId = config.public.EMAILJS_TEMPLATE_ID;
 
 // Contact form
 const contactForm = ref({
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
 });
 
 const submitForm = () => {
   try {
-    emailjs.send(
-      serviceId,
-      templateId,
-      contactForm.value,
-      {
-        publicKey,
-      },
-    );
+    emailjs.send(serviceId, templateId, contactForm.value, {
+      publicKey,
+    });
+    document.getElementById("reactiveModal").showModal();
   } catch (err) {
     if (err instanceof EmailJSResponseStatus) {
-      console.err('EMAILJS FAILED...', err);
+      console.err("EMAILJS FAILED...", err);
       return;
     }
-
-    console.err('Please try again later', err);
+    console.err("Please try again later", err);
   }
 
   // Reset form
   contactForm.value = {
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   };
 };
 </script>

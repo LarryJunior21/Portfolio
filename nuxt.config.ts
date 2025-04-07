@@ -28,5 +28,5 @@ export default defineNuxtConfig({
       EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID,
     },
   },
-  modules: ["@nuxt/image", '@nuxt/ui'],
+  modules: ["@nuxt/image"],
 });
