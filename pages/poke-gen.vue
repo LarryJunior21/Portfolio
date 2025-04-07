@@ -14,10 +14,19 @@
           <button
             @click="prevCardType"
             class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 hidden md:block"
+            :style="{
+              pointerEvents:
+                (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                  ? 'none'
+                  : 'auto',
+            }"
           >
-            <ChevronLeft class="h-8 w-8 text-gray-700" />
+            <span
+              v-if="(!isImageLoaded && buttonClicked === 'prev') || isFirstLoad"
+              class="loading loading-spinner h-8 w-8 text-gray-700"
+            ></span>
+            <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
           </button>
-
           <!-- Card Preview -->
           <div class="relative w-90 h-125" ref="cardPreview">
             <NuxtImg
@@ -25,12 +34,16 @@
               :src="cardTypes[currentCardTypeIndex]"
               alt="image"
               :custom="true"
+              :key="cardTypes[currentCardTypeIndex]"
               v-slot="{ src, isLoaded, imgAttrs }"
+              loading="lazy"
+              preload
             >
               <!-- Update the flag localy to use in other components -->
               <div v-show="false">{{ (isImageLoaded = isLoaded) }}</div>
+
               <!-- Show the actual image when loaded -->
-              <img v-if="isLoaded" v-bind="imgAttrs" :src="src" />
+              <img v-if="!isFirstLoad" v-bind="imgAttrs" :src="src" />
 
               <!-- Show a placeholder while loading -->
               <img
@@ -40,12 +53,6 @@
                 alt="placeholder"
               />
             </NuxtImg>
-            <!-- Card Background -->
-            <!-- <img
-              
-              alt="Pokemon card background"
-            /> -->
-
             <!-- Pokemon Image -->
             <div
               v-if="pokemonImage"
@@ -60,7 +67,6 @@
               ref="wrapper"
               class="absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px]"
             >
-              
               <span
                 ref="text"
                 :style="{
@@ -69,10 +75,9 @@
                 }"
                 class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
               >
-                {{ pokemonName || "Name" }}
+                {{ pokemonName || 'Name' }}
               </span>
             </div>
-            
 
             <!-- HP -->
             <div
@@ -80,7 +85,7 @@
               class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white"
             >
               <div class="font-bold self-end text-[10px]">hp</div>
-              <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
+              <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
             </div>
             <!-- Attack -->
             <div
@@ -88,7 +93,7 @@
               class="absolute bottom-[20%] left-1/2 transform text-gray-900 -translate-x-1/2 w-[80%] text-center"
               :class="{ 'text-white': currentCardTypeIndex === 6 }"
             >
-              <div class="flex items-center justify-between mb-1" >
+              <div class="flex items-center justify-between mb-1">
                 <img
                   v-if="energyType"
                   :src="energyType"
@@ -106,9 +111,7 @@
                   />
                 </div>
               </div>
-              <p
-                class="w-[285px] break-words h-13 text-xs text-left"
-              >
+              <p class="w-[285px] break-words h-13 text-xs text-left">
                 {{ attackDescription }}
               </p>
             </div>
@@ -118,16 +121,40 @@
             <button
               @click="prevCardType"
               class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 block md:hidden"
+              :style="{
+                pointerEvents:
+                  (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                    ? 'none'
+                    : 'auto',
+              }"
             >
-              <ChevronLeft class="h-8 w-8 text-gray-700" />
+              <span
+                v-if="
+                  (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
+                "
+                class="loading loading-spinner h-8 w-8 text-gray-700"
+              ></span>
+              <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
             </button>
 
             <!-- Right Arrow -->
             <button
               @click="nextCardType"
               class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 ml-4"
+              :style="{
+                pointerEvents:
+                  (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
+                    ? 'none'
+                    : 'auto',
+              }"
             >
-              <ChevronRight class="h-8 w-8 text-gray-700" />
+              <span
+                v-if="
+                  (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
+                "
+                class="loading loading-spinner h-8 w-8 text-gray-700"
+              ></span>
+              <ChevronRight v-else class="h-8 w-8 text-gray-700" />
             </button>
           </div>
         </div>
@@ -147,7 +174,7 @@
               type="text"
               id="pokemonName"
               v-model="pokemonName"
-              class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
+              class="mt-1 p-2 text-gray-700 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
             />
           </div>
 
@@ -163,7 +190,7 @@
               min="0"
               max="340"
               @input="limitHp"
-              class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
+              class="mt-1 p-2 text-gray-700 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
             />
           </div>
 
@@ -371,53 +398,61 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, nextTick, computed } from "vue";
-import { ChevronLeft, ChevronRight } from "lucide-vue-next";
-import html2canvas from "html2canvas";
+import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import html2canvas from 'html2canvas-pro';
 
 // Card types (backgrounds)
 const cardTypes = ref([
-  "/images/pokemon-cards/card-water.png",
-  "/images/pokemon-cards/card-fire.png",
-  "/images/pokemon-cards/card-grass.png",
-  "/images/pokemon-cards/card-lightning.png",
-  "/images/pokemon-cards/card-psychic.png",
-  "/images/pokemon-cards/card-fighting.png",
-  "/images/pokemon-cards/card-dark.png",
+  '/images/pokemon-cards/card-water.png',
+  '/images/pokemon-cards/card-fire.png',
+  '/images/pokemon-cards/card-grass.png',
+  '/images/pokemon-cards/card-lightning.png',
+  '/images/pokemon-cards/card-psychic.png',
+  '/images/pokemon-cards/card-fighting.png',
+  '/images/pokemon-cards/card-dark.png',
 ]);
 
 // Energy types
 const energyTypes = ref([
-  "/images/pokemon-cards/energy/fire.png",
-  "/images/pokemon-cards/energy/water.png",
-  "/images/pokemon-cards/energy/grass.png",
-  "/images/pokemon-cards/energy/lightning.png",
-  "/images/pokemon-cards/energy/psychic.png",
-  "/images/pokemon-cards/energy/fighting.png",
-  "/images/pokemon-cards/energy/dark.png",
-  "/images/pokemon-cards/energy/fairy.png",
-  "/images/pokemon-cards/energy/metal.png",
-  "/images/pokemon-cards/energy/dragon.png",
-  "/images/pokemon-cards/energy/colorless.png",
+  '/images/pokemon-cards/energy/fire.png',
+  '/images/pokemon-cards/energy/water.png',
+  '/images/pokemon-cards/energy/grass.png',
+  '/images/pokemon-cards/energy/lightning.png',
+  '/images/pokemon-cards/energy/psychic.png',
+  '/images/pokemon-cards/energy/fighting.png',
+  '/images/pokemon-cards/energy/dark.png',
+  '/images/pokemon-cards/energy/fairy.png',
+  '/images/pokemon-cards/energy/metal.png',
+  '/images/pokemon-cards/energy/dragon.png',
+  '/images/pokemon-cards/energy/colorless.png',
 ]);
 
 // State
 const isImageLoaded = ref(false);
 const currentCardTypeIndex = ref(0);
-const pokemonName = ref("");
+const pokemonName = ref('');
 const hp = ref(100);
-const pokemonImage = ref("");
-const energyType = ref("");
-const energySymbol = ref("");
+const pokemonImage = ref('');
+const energyType = ref('');
+const energySymbol = ref('');
 const displayEnergySymbol = ref(``);
-const energyCost = ref("");
-const attackDescription = ref("");
+const energyCost = ref('');
+const attackDescription = ref('');
 const cardPreview = ref(null);
-const attackName = ref("");
+const attackName = ref('');
+const buttonClicked = ref('');
 
 const wrapper = ref<HTMLElement | null>(null);
 const text = ref<HTMLElement | null>(null);
 const scale = ref(1);
+const isFirstLoad = ref(true);
+
+onBeforeMount(() => {
+  if (isFirstLoad.value) {
+    isFirstLoad.value = false; // Set to false after the first load
+  }
+});
 
 const Xtype = `
 <svg
@@ -482,7 +517,7 @@ const updateScale = () => {
 
 onMounted(() => {
   updateScale();
-  window.addEventListener("resize", updateScale);
+  window.addEventListener('resize', updateScale);
 });
 
 watch(pokemonName, async () => {
@@ -501,14 +536,14 @@ const limitHp = () => {
 
 const selectEnergyType = (energy: string) => {
   // Allows the user to select and disselect
-  energyType.value = energyType.value === energy ? "" : energy;
-  if (energyType.value === "") {
-    energySymbol.value = "";
+  energyType.value = energyType.value === energy ? '' : energy;
+  if (energyType.value === '') {
+    energySymbol.value = '';
   }
 };
 
 // Also watch for changes to ensure the limit is enforced
-watch(hp, (newValue) => {
+watch(hp, (newValue: number) => {
   if (newValue > 340) {
     hp.value = 340;
   } else if (newValue < 0) {
@@ -517,16 +552,16 @@ watch(hp, (newValue) => {
 });
 
 const changeEnergy = (newValue: string) => {
-  energySymbol.value = newValue == energySymbol.value ? "" : newValue;
+  energySymbol.value = newValue == energySymbol.value ? '' : newValue;
 
   switch (energySymbol.value) {
-    case "X":
+    case 'X':
       displayEnergySymbol.value = Xtype;
       break;
-    case "+":
+    case '+':
       displayEnergySymbol.value = Plustype;
       break;
-    case "-":
+    case '-':
       displayEnergySymbol.value = Minustype;
       break;
     default:
@@ -536,11 +571,15 @@ const changeEnergy = (newValue: string) => {
 
 // Navigation functions
 const nextCardType = () => {
+  buttonClicked.value = 'next';
+
   currentCardTypeIndex.value =
     (currentCardTypeIndex.value + 1) % cardTypes.value.length;
 };
 
 const prevCardType = () => {
+  buttonClicked.value = 'prev';
+
   currentCardTypeIndex.value =
     (currentCardTypeIndex.value - 1 + cardTypes.value.length) %
     cardTypes.value.length;
@@ -571,13 +610,13 @@ const downloadCard = async () => {
       backgroundColor: null,
     });
 
-    const link = document.createElement("a");
-    link.download = `${pokemonName.value || "pokemon"}-card.png`;
-    link.href = canvas.toDataURL("image/png");
+    const link = document.createElement('a');
+    link.download = `${pokemonName.value || 'pokemon'}-card.png`;
+    link.href = canvas.toDataURL('image/png');
     link.click();
   } catch (error) {
-    console.error("Error generating card image:", error);
-    alert("Failed to generate card image. Please try again.");
+    console.error('Error generating card image:', error);
+    alert('Failed to generate card image. Please try again.');
   }
 };
 
@@ -590,8 +629,8 @@ const collapsible = ref(null);
 // Computed style for animation
 const collapsibleStyle = computed(() => {
   return isCollapsed.value
-    ? { maxHeight: "1000px", opacity: 1 } // Open state style
-    : { maxHeight: "0", opacity: 0 }; // Collapsed state style
+    ? { maxHeight: '1000px', opacity: 1 } // Open state style
+    : { maxHeight: '0', opacity: 0 }; // Collapsed state style
 });
 
 // Toggle function to change collapse state

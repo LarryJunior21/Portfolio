@@ -39,6 +39,7 @@
               <a
                 v-if="project?.demo"
                 :href="project.demo"
+                target="_blank"
                 class="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center"
               >
                 <ExternalLinkIcon class="h-4 w-4 mr-1" />
@@ -46,6 +47,7 @@
               </a>
               <a
                 :href="project.github"
+                target="_blank"
                 class="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center"
               >
                 <GithubIcon class="h-4 w-4 mr-1" />
@@ -62,27 +64,45 @@
 <script setup>
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'A full-featured e-commerce platform with product management.',
+    title: 'Pokemon card generator',
+    description: 'A page made using Nuxt.js using forms, images, UI and more!',
     image: 'GithubIcon',
-    technologies: ['Vue.js', 'Nuxt.js', 'Node.js', 'MongoDB'],
-    demo: '#',
-    github: '#',
+    technologies: ['Nuxt.js', 'Vue.js', 'Tailwind'],
+    demo: '/poke-gen',
+    github:
+      'https://github.com/LarryJunior21/Portfolio/blob/master/pages/poke-gen.vue',
+  },
+  {
+    title: 'This Portfolio!',
+    description:
+      'I plan to implement every new idea here and try to integrate more technologies overtime',
+    image: 'GithubIcon',
+    technologies: [
+      'Nuxt.js',
+      'Vue.js',
+      'JavaScript',
+      'TypeScript',
+      'Tailwind',
+      'DaisyUI',
+      '@emailjs',
+      '@nuxt/image',
+      '@html2canvas',
+    ],
+    demo: '/#home',
+    github: 'https://github.com/LarryJunior21/Portfolio',
   },
   {
     title: 'Card game | Truco',
     description: 'A collaborative task management app with real-time updates.',
     image: 'GithubIcon',
-    technologies: ['React Native', 'JavaScript', 'TypeScript', 'Node.js', 'Express'],
+    technologies: [
+      'React Native',
+      'JavaScript',
+      'TypeScript',
+      'Node.js',
+      'Express',
+    ],
     github: 'https://github.com/LarryJunior21/trucoApp',
-  },
-  {
-    title: 'Weather Dashboard',
-    description: 'A weather application that displays forecast data.',
-    image: 'GithubIcon',
-    technologies: ['Vue.js', 'OpenWeather API', 'Chart.js'],
-    demo: '#',
-    github: '#',
   },
 ];
 </script>

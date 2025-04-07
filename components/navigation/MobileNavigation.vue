@@ -3,13 +3,18 @@
     <div
       v-if="mobileMenuOpen"
       class="md:hidden fixed top-[100%] right-0 w-[180px] h-auto bg-white/80 dark:bg-gray-800/90 backdrop-blur-md rounded-bl-2xl shadow-sm inset-shadow-sm"
+      ref="menuDrawer"
     >
       <div class="container mx-auto px-4 py-2">
         <div v-for="item in navigation" :key="item.name" class="relative">
           <a
             :href="item.href"
             @click="
-              item.type === 'dropdown' ? handleItemClick($event, item) : null
+              item.type === 'dropdown'
+                ? handleItemClick($event, item)
+                : !isHomePage
+                ? toggleMobileMenu()
+                : null
             "
             class="py-2 cursor-pointer text-left text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
           >
@@ -36,6 +41,7 @@
               class="pl-4 mt-1 overflow-hidden"
             >
               <NuxtLink
+                @click="toggleMobileMenu()"
                 v-for="subItem in item.items"
                 class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 :key="subItem.name"
@@ -52,8 +58,17 @@
 </template>
 
 <script setup>
-const { navigation, mobileMenuOpen, dropdownOpen, toggleDropdown } =
-  useNavigation();
+import { onMounted, onBeforeUnmount, ref } from 'vue';
+
+const {
+  navigation,
+  mobileMenuOpen,
+  dropdownOpen,
+  toggleDropdown,
+  toggleMobileMenu,
+  isHomePage,
+} = useNavigation();
+const menuDrawer = ref(null); // Create a ref for the menu
 
 // Handle click on navigation items
 const handleItemClick = (event, item) => {
@@ -64,6 +79,23 @@ const handleItemClick = (event, item) => {
   }
   // For regular links, let the default behavior happen
 };
+
+// Close the menu if clicked outside
+const handleClickOutside = (event) => {
+  if (menuDrawer.value && !menuDrawer.value.contains(event.target)) {
+    toggleMobileMenu();
+  }
+};
+
+// Set up the click listener when mounted
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+// Clean up the listener before unmounting
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <style scoped src="~/assets/css/menu-drawer.css" />

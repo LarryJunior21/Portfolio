@@ -1,5 +1,21 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  "exclude": ["node_modules"]
+  "compilerOptions": {
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "types": ["@types/node", "nuxt", "vue"],
+    "baseUrl": ".",
+    "paths": {
+      "vue": ["./node_modules/vue"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "types",
+    "nuxt.config.ts",
+    "app.vue",
+    "components/**/*.vue",
+    "pages/**/*.vue"
+  ]
 }

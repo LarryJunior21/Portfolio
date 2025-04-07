@@ -1,20 +1,20 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
   app: {
     head: {
-      title: "Larry Portfolio",
+      title: 'Larry Portfolio',
       meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { id: "description", name: "description", content: "Larry Portfolio" },
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { id: 'description', name: 'description', content: 'Larry Portfolio' },
       ],
     },
   },
-  plugins: ["~/plugins/icons.ts"],
+  plugins: ['~/plugins/icons.ts'],
   vite: {
     plugins: [tailwindcss()],
   },
@@ -28,5 +28,5 @@ export default defineNuxtConfig({
       EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID,
     },
   },
-  modules: ["@nuxt/image"],
+  modules: ['@nuxt/image'],
 });
