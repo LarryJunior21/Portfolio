@@ -3,14 +3,16 @@
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="flex mb-4 md:mb-0">
-          <div class="block border-r-1 pr-2 mr-2">
+          <div
+            class="flex flex-col items-center justify-center border-r-1 pr-2 mr-2"
+          >
             <p class="text-lg font-semibold">Larry Junior | Developer</p>
             <p class="text-sm">
               © {{ new Date().getFullYear() }} All Rights Reserved
             </p>
           </div>
           <div
-            class="flex flex-col sm:flex-row md:mb-0 self-center items-center gap-0.5 sm:gap-2"
+            class="flex flex-col sm:flex-row md:mb-0 self-center items-center sm:gap-2"
           >
             <span>Built with</span>
             <img

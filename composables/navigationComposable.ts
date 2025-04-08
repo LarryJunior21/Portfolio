@@ -1,27 +1,27 @@
-import { useState, useRoute } from 'nuxt/app';
-import { ref } from 'vue';
+import { useState, useRoute } from "nuxt/app";
+import { ref } from "vue";
 
 export const useNavigation = () => {
   // Header title
-  const title = '<Welcome/>';
+  const title = "<Larry.dev/>";
 
   // Navigation Options
   const navigation = ref([
-    { name: 'Home', type: 'link', href: '/#home' },
-    { name: 'About', type: 'link', href: '/#about' },
-    { name: 'Projects', type: 'link', href: '/#projects' },
-    { name: 'Contact', type: 'link', href: '/#contact' },
+    { name: "Home", type: "link", href: "/#home" },
+    { name: "About", type: "link", href: "/#about" },
+    { name: "Projects", type: "link", href: "/#projects" },
+    { name: "Contact", type: "link", href: "/#contact" },
     {
-      name: 'Examples',
-      type: 'dropdown',
+      name: "Examples",
+      type: "dropdown",
       isOpen: false,
-      items: [{ name: 'PokeGen', href: '/poke-gen' }],
+      items: [{ name: "PokeGen", href: "/poke-gen" }],
     },
   ]);
 
-  const menuTransitioning = useState('menuTransitioning', () => false);
-  const mobileMenuOpen = useState('mobileMenuOpen', () => false); // Default value is false
-  const dropdownOpen = useState('dropdownOpen', () => false); // For dropdown state
+  const menuTransitioning = useState("menuTransitioning", () => false);
+  const mobileMenuOpen = useState("mobileMenuOpen", () => false); // Default value is false
+  const dropdownOpen = useState("dropdownOpen", () => false); // For dropdown state
   const route = useRoute();
 
   const toggleDropdown = (item: any) => {
@@ -48,14 +48,14 @@ export const useNavigation = () => {
     menuTransitioning.value = false; // Transition finished
   };
 
-  const unToggleDropdownAfterClick = (href: string = '') => {
+  const unToggleDropdownAfterClick = (href: string = "") => {
     dropdownOpen.value = false;
-    if (href !== '') location.href = href;
+    if (href !== "") location.href = href;
   };
 
   // Is simple logic but it's more to remove logic from html and make it reusable between components
   const isHomePage = (): boolean => {
-    return route.path === '/';
+    return route.path === "/";
   };
 
   return {
