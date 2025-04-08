@@ -1,9 +1,13 @@
 <template>
   <ui-animatedBackground />
 
-  <div class="flex justify-center min-h-screen pt-28 py-12 px-0 sm:px-6 lg:px-8 relative">
-    <div class="flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg ">
-      <div class="max-w-4xl mx-auto">
+  <div
+    class="flex justify-center min-h-screen pt-28 py-12 px-0 sm:px-6 lg:px-8 relative"
+  >
+    <div
+      class="flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg"
+    >
+      <div class="max-w-4xl mx-auto grid items-center">
         <h1
           class="pokemon-title text-3xl font-bold text-center text-gray-900 mb-8"
         >
@@ -12,7 +16,9 @@
 
         <div>
           <!-- Card Preview Section -->
-          <div class="flex items-center justify-center mb-8 flex-col md:flex-row">
+          <div
+            class="flex items-center justify-center mb-8 flex-col md:flex-row"
+          >
             <!-- Left Arrow -->
             <button
               @click="prevCardType"
@@ -25,7 +31,9 @@
               }"
             >
               <span
-                v-if="(!isImageLoaded && buttonClicked === 'prev') || isFirstLoad"
+                v-if="
+                  (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
+                "
                 class="loading loading-spinner h-8 w-8 text-gray-700"
               ></span>
               <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
@@ -164,7 +172,9 @@
         </div>
 
         <!-- Form Section -->
-        <div class="bg-white shadow rounded-lg p-6 w-[95%] sm:w-full justify-self-center">
+        <div
+          class="bg-white shadow rounded-lg p-6 w-[95%] sm:w-full justify-self-center"
+        >
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <!-- Pokemon Name -->
             <div>
@@ -402,7 +412,7 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from "lucide-vue-next";
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 const {
   isImageLoaded,
