@@ -1,4 +1,5 @@
 import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
+import { useState } from 'nuxt/app';
 import html2canvas from 'html2canvas-pro';
 
 export const usePoke = () => {
@@ -42,10 +43,17 @@ export const usePoke = () => {
   const cardPreview = ref(null);
   const attackName = ref('');
   const buttonClicked = ref('');
+  const croppedPokemonImage = useState('croppedPokemonImage', () => '');
 
-  const wrapper = ref<HTMLElement | null>(null);
-  const text = ref<HTMLElement | null>(null);
-  const scale = ref(1);
+  // Relates to the name and attack name, allowing the names to scale down according to their size
+  const nameWrapper = ref<HTMLElement | null>(null);
+  const attackWrapper = ref<HTMLElement | null>(null);
+  const nameText = ref<HTMLElement | null>(null);
+  const attackText = ref<HTMLElement | null>(null);
+  const nameScale = ref(1);
+  const attackScale = ref(1);
+
+  // Check for the first load of the page
   const isFirstLoad = ref(true);
 
   // State to track the collapse
@@ -53,6 +61,9 @@ export const usePoke = () => {
 
   // Ref to get the collapsible element
   const collapsible = ref(null);
+
+  // Open cropp modal programatically after uploading the image
+  const modal = ref<HTMLDialogElement | null>(null);
 
   onBeforeMount(() => {
     if (isFirstLoad.value) {
@@ -112,23 +123,45 @@ export const usePoke = () => {
     ></path>
     </svg>`;
 
-  const updateScale = () => {
-    if (!wrapper.value || !text.value) return;
-    const wrapperWidth = wrapper?.value?.offsetWidth;
-    const textWidth = text.value.scrollWidth;
+  const updateNameScale = () => {
+    if (!nameWrapper.value || !nameText.value) return;
+    const wrapperWidth = nameWrapper?.value?.offsetWidth;
+    const textWidth = nameText.value.scrollWidth;
 
-    // Only scale down if text overflows
-    scale.value = textWidth > wrapperWidth ? wrapperWidth / textWidth : 1;
+    // Only nameScale down if text overflows
+    nameScale.value = textWidth > wrapperWidth ? wrapperWidth / textWidth : 1;
+  };
+
+  const updateAttackScale = () => {
+    if (!attackWrapper.value || !attackText.value) return;
+    const wrapperWidth = attackWrapper?.value?.offsetWidth;
+    const textWidth = attackText.value.scrollWidth;
+
+    // Only nameScale down if text overflows
+    attackScale.value = textWidth > wrapperWidth ? wrapperWidth / textWidth : 1;
   };
 
   onMounted(() => {
-    updateScale();
-    window.addEventListener('resize', updateScale);
+    updateNameScale();
+    updateAttackScale();
+
+    window.addEventListener('resize', () => {
+      updateNameScale();
+      updateAttackScale();
+    });
+    modal.value = document.getElementById(
+      'cropImageModal'
+    ) as HTMLDialogElement;
   });
 
-  watch(pokemonName, async () => {
+  watch([pokemonName, attackName], async (newValues, oldValues) => {
     await nextTick();
-    updateScale();
+    if (newValues[0] !== oldValues[0]) {
+      updateNameScale();
+    }
+    if (newValues[1] !== oldValues[1]) {
+      updateAttackScale();
+    }
   });
 
   // HP limit function
@@ -193,6 +226,9 @@ export const usePoke = () => {
 
   // Handle image upload
   const handleImageUpload = (event: Event) => {
+    // Remove the cropped image if another one was already uploaded
+    if (croppedPokemonImage.value !== '') croppedPokemonImage.value = '';
+
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
 
@@ -202,6 +238,7 @@ export const usePoke = () => {
         pokemonImage.value = e.target?.result as string;
       };
       reader.readAsDataURL(file);
+      modal?.value?.showModal();
     }
   };
 
@@ -253,9 +290,14 @@ export const usePoke = () => {
     cardPreview,
     attackName,
     buttonClicked,
-    wrapper,
-    text,
-    scale,
+    // Scaling texts
+    nameWrapper,
+    nameText,
+    nameScale,
+    attackWrapper,
+    attackText,
+    attackScale,
+
     isFirstLoad,
     isCollapsed,
     collapsible,
@@ -267,6 +309,7 @@ export const usePoke = () => {
     Xtype,
     Minustype,
     Plustype,
+    croppedPokemonImage,
     toggleCollapse,
     downloadCard,
     handleImageUpload,
