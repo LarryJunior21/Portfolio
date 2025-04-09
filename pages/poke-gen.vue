@@ -64,24 +64,25 @@
                   alt="placeholder"
                 />
               </NuxtImg>
-              <!-- Pokemon Image -->
+              <!-- Pokemon Image - Check if the croppedPokemonImage is done from cropper AND 
+              if the card image is loaded so the pokemon image doesn't stay floating -->
               <div
-                v-if="pokemonImage"
-                class="absolute top-[3.3rem] h-[194px] w-[291px] left-[11.2rem] transform -translate-x-1/2 flex items-center justify-center overflow-hidden"
+                v-if="croppedPokemonImage && isImageLoaded"
+                class="absolute top-[52.5px] h-[195px] w-[292px] left-[11.2rem] transform -translate-x-1/2 flex items-center justify-center overflow-hidden"
               >
-                <img :src="pokemonImage" alt="Pokemon" />
+                <img :src="croppedPokemonImage" alt="Pokemon" />
               </div>
 
               <!-- Pokemon Name -->
               <div
                 v-if="isImageLoaded"
-                ref="wrapper"
+                ref="nameWrapper"
                 class="absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px]"
               >
                 <span
-                  ref="text"
+                  ref="nameText"
                   :style="{
-                    transform: `scaleX(${scale})`,
+                    transform: `scaleX(${nameScale})`,
                     transformOrigin: 'left',
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
@@ -105,24 +106,45 @@
                 :class="{ 'text-white': currentCardTypeIndex === 6 }"
               >
                 <div class="flex items-center justify-between mb-1">
-                  <img
-                    v-if="energyType"
-                    :src="energyType"
-                    class="w-5 h-5 -mr-8"
-                    alt="Energy type"
-                  />
-                  <span class="font-semibold" v-if="attackName">
-                    {{ attackName }}
-                  </span>
-                  <div class="flex items-center space-x-1">
+                  <div class="w-full max-w-5">
+                    <img
+                      v-if="energyType"
+                      :src="energyType"
+                      class="w-5 h-5 -mr-8"
+                      alt="Energy type"
+                    />
+                  </div>
+                  <div
+                    v-if="isImageLoaded"
+                    ref="attackWrapper"
+                    class="overflow-hidden flex"
+                  >
+                    <span
+                      ref="attackText"
+                      :style="{
+                        transform: `scaleX(${attackScale})`,
+                        transformOrigin: 'left',
+                      }"
+                      class="font-semibold px-2 w-full text-nowrap"
+                    >
+                      {{ attackName }}
+                    </span>
+                  </div>
+                  <div
+                    class="flex items-center justify-end space-x-1 w-full max-w-[66px] overflow-hidden"
+                  >
                     {{ energyCost }}
+                    <!-- Hide the energy cost display pushing the name to the right -->
                     <div
-                      class="w-[8px] flex h-3 ml-1"
+                      :class="{ hidden: !displayEnergySymbol }"
+                      class="w-[8px] relative top-0.5 flex h-3 ml-1 text-black"
                       v-html="displayEnergySymbol"
                     />
                   </div>
                 </div>
-                <p class="w-[285px] break-words h-13 text-xs text-left">
+                <p
+                  class="w-[285px] break-words h-13 text-xs text-left overflow-hidden text-ellipsis line-clamp-3"
+                >
                   {{ attackDescription }}
                 </p>
               </div>
@@ -207,6 +229,7 @@
               />
             </div>
 
+            <reusable-imageCropper :image="pokemonImage" />
             <!-- Pokemon Image Upload -->
             <div>
               <label
@@ -224,9 +247,7 @@
             </div>
 
             <div :class="{ 'h-min': !isCollapsed }">
-              <label
-                for="pokemonImage"
-                class="block text-sm font-medium text-gray-700"
+              <label class="block text-sm font-medium text-gray-700"
                 >Optional - Input card attack</label
               >
               <!-- Button to toggle the collapsible section -->
@@ -328,6 +349,8 @@
                             :disabled="energyType === ''"
                             v-model="energyCost"
                             min="0"
+                            max="999999"
+                            @input="limitInput"
                             class="p-2 w-full sm:w-24 rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
                           />
 
@@ -428,12 +451,19 @@ const {
   cardPreview,
   attackName,
   buttonClicked,
-  wrapper,
-  text,
-  scale,
+
+  // Scaling texts
+  nameWrapper,
+  nameText,
+  nameScale,
+  attackWrapper,
+  attackText,
+  attackScale,
+
   isFirstLoad,
   isCollapsed,
   collapsible,
+  croppedPokemonImage,
 
   // Methods & other vars (assuming these are defined elsewhere in your setup)
   collapsibleStyle,
@@ -451,6 +481,17 @@ const {
   selectEnergyType,
   changeEnergy,
 } = usePoke();
+
+const limitInput = () => {
+  // Convert the value to a string to prevent exceeding 6 digits
+  const maxLength = 6;
+  const valueAsString = energyCost.value.toString();
+
+  // If the number is more than 6 digits, truncate it
+  if (valueAsString.length > maxLength) {
+    energyCost.value = parseInt(valueAsString.slice(0, maxLength));
+  }
+};
 </script>
 
 <style scoped src="~/assets/css/pokemon.css" />

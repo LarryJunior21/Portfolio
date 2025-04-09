@@ -77,14 +77,14 @@
       </div>
     </div>
   </section>
-  <reusable-Modal
+  <reusable-messageModal
     title="Email sent"
     message="Thank you for your e-mail! I'll do my best to reply as soon as possible!"
   />
 </template>
 
 <script setup>
-import emailjs from "@emailjs/browser";
+import emailjs from '@emailjs/browser';
 
 const config = useRuntimeConfig();
 
@@ -94,10 +94,10 @@ const templateId = config.public.EMAILJS_TEMPLATE_ID;
 
 // Contact form
 const contactForm = ref({
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
 });
 
 const submitForm = () => {
@@ -105,21 +105,21 @@ const submitForm = () => {
     emailjs.send(serviceId, templateId, contactForm.value, {
       publicKey,
     });
-    document.getElementById("reactiveModal").showModal();
+    document.getElementById('reactiveModal').showModal();
   } catch (err) {
     if (err instanceof EmailJSResponseStatus) {
-      console.err("EMAILJS FAILED...", err);
+      console.err('EMAILJS FAILED...', err);
       return;
     }
-    console.err("Please try again later", err);
+    console.err('Please try again later', err);
   }
 
   // Reset form
   contactForm.value = {
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   };
 };
 </script>
