@@ -1,0 +1,14 @@
+# .github/labeler.yml
+
+pull_request:
+  paths:
+    'src/**/*.js':
+      - 'javascript'
+    'src/**/*.ts':
+      - 'typescript'
+    'src/**/*.css':
+      - 'css'
+    'docs/**/*.md':
+      - 'documentation'
+    'tests/**/*.js':
+      - 'tests'
