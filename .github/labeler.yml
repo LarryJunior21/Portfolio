@@ -1,14 +1,71 @@
-# .github/labeler.yml
+# labeler.yml
 
-pull_request:
-  paths:
-    'src/**/*.js':
-      - 'javascript'
-    'src/**/*.ts':
-      - 'typescript'
-    'src/**/*.css':
-      - 'css'
-    'docs/**/*.md':
-      - 'documentation'
-    'tests/**/*.js':
-      - 'tests'
+# A labeler configuration for a Nuxt.js project
+# This configuration will automatically label PRs based on file paths or changes
+
+# Rules for labeling PRs based on the files changed
+rules:
+  # Label for any changes to Nuxt config files
+  - name: 'Nuxt Config'
+    files:
+      - 'nuxt.config.js'
+      - 'nuxt.config.ts'
+      - 'tsconfig.json'
+      - 'package.json'
+    label: 'config'
+
+  # Label for changes to Vue components
+  - name: 'Vue Components'
+    files:
+      - 'components/**/*'
+    label: 'components'
+
+  # Label for changes to pages
+  - name: 'Pages'
+    files:
+      - 'pages/**/*'
+    label: 'pages'
+
+  # Label for changes to assets (images, fonts, etc.)
+  - name: 'Assets'
+    files:
+      - 'assets/**/*'
+    label: 'assets'
+
+  # Label for changes to store (Vuex or Pinia stores)
+  - name: 'Store'
+    files:
+      - 'store/**/*'
+      - 'composables/**/*'
+    label: 'store'
+
+  # Label for changes to middleware
+  - name: 'Middleware'
+    files:
+      - 'middleware/**/*'
+    label: 'middleware'
+
+  # Label for changes to static files
+  - name: 'Static Files'
+    files:
+      - 'static/**/*'
+    label: 'static'
+
+  # Label for changes to tailwindcss config files
+  - name: 'TailwindCSS Config'
+    files:
+      - 'tailwind.config.js'
+    label: 'tailwind'
+
+  # Label for changes to API routes
+  - name: 'API Routes'
+    files:
+      - 'server/api/**/*'
+    label: 'api'
+
+  # Label for changes to test files
+  - name: 'Tests'
+    files:
+      - 'tests/**/*'
+      - 'test/**/*'
+    label: 'tests'
