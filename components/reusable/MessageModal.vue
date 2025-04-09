@@ -19,5 +19,5 @@
 <script lang="ts" setup>
 const props = defineProps({ title: String, message: String, btnName: String });
 const buttonName =
-  props.btnName && props.btnName !== "" ? props.btnName : "Close";
+  props.btnName && props.btnName !== '' ? props.btnName : 'Close';
 </script>
