@@ -51,7 +51,7 @@
                 preload
               >
                 <!-- Update the flag localy to use in other components -->
-                <div v-show="false">{{ isImageLoaded = isLoaded }}</div>
+                <div v-show="false">{{ (isImageLoaded = isLoaded) }}</div>
 
                 <!-- Show the actual image when loaded -->
                 <img v-if="isImageLoaded" v-bind="imgAttrs" :src="src" />
@@ -142,9 +142,9 @@
                     <!-- Hide the energy cost display pushing the name to the right -->
                     <div
                       :class="{ hidden: !displayEnergySymbol }"
-                      class="w-[8px] relative top-0.5 flex h-3 ml-1 text-black"
+                      class="w-[8px] relative top-[1px] flex h-3 ml-1 text-black"
                     >
-                      {{ displayEnergySymbol }}
+                      <NuxtImg :src="displayEnergySymbol" alt="Symbol" />
                     </div>
                   </div>
                 </div>
