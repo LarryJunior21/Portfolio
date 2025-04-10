@@ -74,6 +74,7 @@ const skills = [
   "Tailwind CSS",
   "Git",
   "Docker",
+  "Docker Compose",
   "RESTful APIs",
   "GraphQL",
 ];
