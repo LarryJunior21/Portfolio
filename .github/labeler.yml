@@ -6,66 +6,66 @@
 # Rules for labeling PRs based on the files changed
 rules:
   # Label for any changes to Nuxt config files
-  - name: 'Nuxt Config'
+  - name: "Nuxt Config"
     files:
-      - 'nuxt.config.js'
-      - 'nuxt.config.ts'
-      - 'tsconfig.json'
-      - 'package.json'
-    label: 'config'
+      - "nuxt.config.js"
+      - "nuxt.config.ts"
+      - "tsconfig.json"
+      - "package.json"
+    label: "config"
 
   # Label for changes to Vue components
-  - name: 'Vue Components'
+  - name: "Vue Components"
     files:
-      - 'components/**/*'
-    label: 'components'
+      - "components/**/*"
+    label: "components"
 
   # Label for changes to pages
-  - name: 'Pages'
+  - name: "Pages"
     files:
-      - 'pages/**/*'
-    label: 'pages'
+      - "pages/**/*"
+    label: "pages"
 
   # Label for changes to assets (images, fonts, etc.)
-  - name: 'Assets'
+  - name: "Assets"
     files:
-      - 'assets/**/*'
-    label: 'assets'
+      - "assets/**/*"
+    label: "assets"
 
   # Label for changes to store (Vuex or Pinia stores)
-  - name: 'Store'
+  - name: "Store"
     files:
-      - 'store/**/*'
-      - 'composables/**/*'
-    label: 'store'
+      - "store/**/*"
+      - "composables/**/*"
+    label: "store"
 
   # Label for changes to middleware
-  - name: 'Middleware'
+  - name: "Middleware"
     files:
-      - 'middleware/**/*'
-    label: 'middleware'
+      - "middleware/**/*"
+    label: "middleware"
 
   # Label for changes to static files
-  - name: 'Static Files'
+  - name: "Static Files"
     files:
-      - 'static/**/*'
-    label: 'static'
+      - "static/**/*"
+    label: "static"
 
   # Label for changes to tailwindcss config files
-  - name: 'TailwindCSS Config'
+  - name: "TailwindCSS Config"
     files:
-      - 'tailwind.config.js'
-    label: 'tailwind'
+      - "tailwind.config.js"
+    label: "tailwind"
 
   # Label for changes to API routes
-  - name: 'API Routes'
+  - name: "API Routes"
     files:
-      - 'server/api/**/*'
-    label: 'api'
+      - "server/api/**/*"
+    label: "api"
 
   # Label for changes to test files
-  - name: 'Tests'
+  - name: "Tests"
     files:
-      - 'tests/**/*'
-      - 'test/**/*'
-    label: 'tests'
+      - "tests/**/*"
+      - "test/**/*"
+    label: "tests"

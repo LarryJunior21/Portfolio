@@ -45,7 +45,7 @@
             >
               <div
                 class="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400"
-              ></div>
+              />
               <span class="text-gray-700 dark:text-gray-300">{{ skill }}</span>
             </div>
           </div>
@@ -57,24 +57,25 @@
 
 <script setup>
 const skills = [
-  'JavaScript',
-  'TypeScript',
-  'PHP',
-  'Angular',
-  'Vue.js',
-  'Nuxt.js',
-  'Next.js',
-  'React',
-  'React Native',
-  'Node.js',
-  'Adobe E-Commerce',
-  'MongoDB',
-  'PostgreSQL',
-  'HTML/CSS',
-  'Tailwind CSS',
-  'Git',
-  'Docker',
-  'RESTful APIs',
-  'GraphQL',
+  "JavaScript",
+  "TypeScript",
+  "PHP",
+  "Angular",
+  "Vue.js",
+  "Nuxt.js",
+  "Next.js",
+  "React",
+  "React Native",
+  "Node.js",
+  "Adobe E-Commerce",
+  "MongoDB",
+  "PostgreSQL",
+  "HTML/CSS",
+  "Tailwind CSS",
+  "Git",
+  "Docker",
+  "Docker Compose",
+  "RESTful APIs",
+  "GraphQL",
 ];
 </script>

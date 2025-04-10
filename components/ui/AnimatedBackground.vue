@@ -1,7 +1,7 @@
 <!-- AnimatedBackground.vue -->
 <template>
   <div class="animated-background">
-    <div class="gradient-overlay"></div>
+    <div class="gradient-overlay" />
   </div>
 </template>
 

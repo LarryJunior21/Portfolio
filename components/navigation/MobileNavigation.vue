@@ -2,21 +2,21 @@
   <transition name="drawer">
     <div
       v-if="mobileMenuOpen"
-      class="md:hidden fixed top-[100%] right-0 w-[180px] h-auto bg-white/80 dark:bg-gray-800/90 backdrop-blur-md rounded-bl-2xl shadow-sm inset-shadow-sm"
       ref="menuDrawer"
+      class="md:hidden fixed top-[100%] right-0 w-[180px] h-auto bg-white/80 dark:bg-gray-800/90 backdrop-blur-md rounded-bl-2xl shadow-sm inset-shadow-sm"
     >
       <div class="container mx-auto px-4 py-2">
         <div v-for="item in navigation" :key="item.name" class="relative">
           <a
             :href="item.href"
+            class="py-2 cursor-pointer text-left text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
             @click="
               item.type === 'dropdown'
                 ? handleItemClick($event, item)
                 : !isHomePage
-                ? toggleMobileMenu()
-                : null
+                  ? toggleMobileMenu()
+                  : null
             "
-            class="py-2 cursor-pointer text-left text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center"
           >
             {{ item.name }}
             <svg
@@ -41,11 +41,11 @@
               class="pl-4 mt-1 overflow-hidden"
             >
               <NuxtLink
-                @click="toggleMobileMenu()"
                 v-for="subItem in item.items"
-                class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 :key="subItem.name"
+                class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 :to="subItem.href"
+                @click="toggleMobileMenu()"
               >
                 {{ subItem.name }}
               </NuxtLink>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref } from "vue";
 
 const {
   navigation,
@@ -72,7 +72,7 @@ const menuDrawer = ref(null); // Create a ref for the menu
 
 // Handle click on navigation items
 const handleItemClick = (event, item) => {
-  if (item.type === 'dropdown') {
+  if (item.type === "dropdown") {
     // Prevent default only for dropdown items
     event.preventDefault();
     toggleDropdown(item);
@@ -89,12 +89,12 @@ const handleClickOutside = (event) => {
 
 // Set up the click listener when mounted
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
+  document.addEventListener("click", handleClickOutside);
 });
 
 // Clean up the listener before unmounting
 onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside);
+  document.removeEventListener("click", handleClickOutside);
 });
 </script>
 

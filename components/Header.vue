@@ -16,11 +16,11 @@
       <navigation-DesktopNavigation />
       <!-- Send true as a parameter so the function checks the button was clicked and not the outside drawer -->
       <button
-        @click="toggleMobileMenu(true)"
         class="md:hidden z-50 text-gray-600 dark:text-gray-300 relative w-10 h-10"
+        @click="toggleMobileMenu(true)"
       >
         <!-- Transition for MenuIcon to XIcon -->
-        <Transition name="rotate-fade" @after-leave="afterLeave" mode="out-in">
+        <Transition name="rotate-fade" mode="out-in" @after-leave="afterLeave">
           <MenuIcon
             v-show="!menuTransitioning && !mobileMenuOpen"
             key="menu"
@@ -29,7 +29,7 @@
         </Transition>
 
         <!-- Transition for XIcon to MenuIcon -->
-        <Transition name="fade" @after-leave="afterLeave" mode="out-in">
+        <Transition name="fade" mode="out-in" @after-leave="afterLeave">
           <XIcon
             v-show="!menuTransitioning && mobileMenuOpen"
             key="x"

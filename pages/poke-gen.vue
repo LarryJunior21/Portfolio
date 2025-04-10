@@ -21,7 +21,6 @@
           >
             <!-- Left Arrow -->
             <button
-              @click="prevCardType"
               class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 hidden md:block"
               :style="{
                 pointerEvents:
@@ -29,24 +28,25 @@
                     ? 'none'
                     : 'auto',
               }"
+              @click="prevCardType"
             >
               <span
                 v-if="
                   (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
                 "
                 class="loading loading-spinner h-8 w-8 text-gray-700"
-              ></span>
+              />
               <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
             </button>
             <!-- Card Preview -->
-            <div class="relative w-90 h-125" ref="cardPreview">
+            <div ref="cardPreview" class="relative w-90 h-125">
               <NuxtImg
+                :key="cardTypes[currentCardTypeIndex]"
+                v-slot="{ src, isLoaded, imgAttrs }"
                 class="w-full h-full object-contain"
                 :src="cardTypes[currentCardTypeIndex]"
                 alt="image"
                 :custom="true"
-                :key="cardTypes[currentCardTypeIndex]"
-                v-slot="{ src, isLoaded, imgAttrs }"
                 loading="lazy"
                 preload
               >
@@ -70,7 +70,11 @@
                 v-if="croppedPokemonImage && isImageLoaded"
                 class="absolute top-[52.5px] h-[195px] w-[292px] left-[11.2rem] transform -translate-x-1/2 flex items-center justify-center overflow-hidden"
               >
-                <img :src="croppedPokemonImage" alt="Pokemon" />
+                <img
+                  class="w-full h-full object-contain"
+                  :src="croppedPokemonImage"
+                  alt="Pokemon"
+                />
               </div>
 
               <!-- Pokemon Name -->
@@ -87,7 +91,7 @@
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
                 >
-                  {{ pokemonName || 'Name' }}
+                  {{ pokemonName || "Name" }}
                 </span>
               </div>
 
@@ -97,7 +101,7 @@
                 class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white"
               >
                 <div class="font-bold self-end text-[10px]">hp</div>
-                <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
+                <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
               </div>
               <!-- Attack -->
               <div
@@ -105,7 +109,7 @@
                 class="absolute bottom-[20%] left-1/2 transform text-gray-900 -translate-x-1/2 w-[80%] text-center"
                 :class="{ 'text-white': currentCardTypeIndex === 6 }"
               >
-                <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center justify-between mb-1 gap-1">
                   <div class="w-full max-w-5">
                     <img
                       v-if="energyType"
@@ -114,6 +118,7 @@
                       alt="Energy type"
                     />
                   </div>
+                  <!-- absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px] -->
                   <div
                     v-if="isImageLoaded"
                     ref="attackWrapper"
@@ -125,21 +130,22 @@
                         transform: `scaleX(${attackScale})`,
                         transformOrigin: 'left',
                       }"
-                      class="font-semibold px-2 w-full text-nowrap"
+                      class="block font-semibold w-full text-nowrap whitespace-nowrap self-end"
                     >
                       {{ attackName }}
                     </span>
                   </div>
                   <div
-                    class="flex items-center justify-end space-x-1 w-full max-w-[66px] overflow-hidden"
+                    class="flex items-center justify-end space-x-1 w-full max-w-[72px] overflow-hidden"
                   >
                     {{ energyCost }}
                     <!-- Hide the energy cost display pushing the name to the right -->
                     <div
                       :class="{ hidden: !displayEnergySymbol }"
-                      class="w-[8px] relative top-0.5 flex h-3 ml-1 text-black"
-                      v-html="displayEnergySymbol"
-                    />
+                      class="w-[8px] relative top-[1px] flex h-3 ml-1 text-black"
+                    >
+                      <NuxtImg :src="displayEnergySymbol" alt="Symbol" />
+                    </div>
                   </div>
                 </div>
                 <p
@@ -152,7 +158,6 @@
 
             <div class="flex mt-4 md:block md:m-0">
               <button
-                @click="prevCardType"
                 class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 mr-4 block md:hidden"
                 :style="{
                   pointerEvents:
@@ -160,19 +165,19 @@
                       ? 'none'
                       : 'auto',
                 }"
+                @click="prevCardType"
               >
                 <span
                   v-if="
                     (!isImageLoaded && buttonClicked === 'prev') || isFirstLoad
                   "
                   class="loading loading-spinner h-8 w-8 text-gray-700"
-                ></span>
+                />
                 <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
               </button>
 
               <!-- Right Arrow -->
               <button
-                @click="nextCardType"
                 class="p-2 rounded-full bg-white shadow-md hover:bg-gray-200 ml-4"
                 :style="{
                   pointerEvents:
@@ -180,13 +185,14 @@
                       ? 'none'
                       : 'auto',
                 }"
+                @click="nextCardType"
               >
                 <span
                   v-if="
                     (!isImageLoaded && buttonClicked === 'next') || isFirstLoad
                   "
                   class="loading loading-spinner h-8 w-8 text-gray-700"
-                ></span>
+                />
                 <ChevronRight v-else class="h-8 w-8 text-gray-700" />
               </button>
             </div>
@@ -206,9 +212,9 @@
                 >Pokemon Name</label
               >
               <input
-                type="text"
                 id="pokemonName"
                 v-model="pokemonName"
+                type="text"
                 class="mt-1 p-2 text-gray-700 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
               />
             </div>
@@ -219,13 +225,13 @@
                 >HP</label
               >
               <input
-                type="number"
                 id="hp"
                 v-model="hp"
+                type="number"
                 min="0"
                 max="340"
-                @input="limitHp"
                 class="mt-1 p-2 text-gray-700 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
+                @input="limitHp"
               />
             </div>
 
@@ -238,11 +244,13 @@
                 >Pokemon Image</label
               >
               <input
-                type="file"
                 id="pokemonImage"
-                @change="handleImageUpload"
+                ref="imageUploader"
+                type="file"
                 accept="image/*"
                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                @click="resetImageUploader"
+                @change="handleImageUpload"
               />
             </div>
 
@@ -252,8 +260,8 @@
               >
               <!-- Button to toggle the collapsible section -->
               <div
-                @click="toggleCollapse"
                 class="flex p-2 mt-1 w-full shadow-sm bg-violet-50 hover:bg-violet-100 items-center cursor-pointer rounded-md"
+                @click="toggleCollapse"
               >
                 <span class="text-sm font-medium text-violet-700"
                   >Attack Section</span
@@ -290,9 +298,9 @@
                         >Attack Name</label
                       >
                       <input
-                        type="text"
                         id="attackName"
                         v-model="attackName"
+                        type="text"
                         class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
                       />
                     </div>
@@ -315,11 +323,11 @@
                           <button
                             v-for="(energy, index) in energyTypes"
                             :key="index"
-                            @click="selectEnergyType(energy)"
                             class="py-1 px-0.5 shadow-sm rounded-md hover:bg-gray-100"
                             :class="{
                               'ring-2 ring-violet-500': energyType === energy,
                             }"
+                            @click="selectEnergyType(energy)"
                           >
                             <img
                               :src="energy"
@@ -344,20 +352,19 @@
                         >
                           <!-- Input Field -->
                           <input
-                            type="number"
                             id="energyCost"
-                            :disabled="energyType === ''"
                             v-model="energyCost"
+                            type="number"
+                            :disabled="energyType === ''"
                             min="0"
                             max="999999"
-                            @input="limitInput"
                             class="p-2 w-full sm:w-24 rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
+                            @input="limitInput"
                           />
 
                           <!-- Energy Symbol Buttons -->
                           <div class="flex space-x-2">
                             <button
-                              @click="changeEnergy('X')"
                               :class="[
                                 'rounded-md',
                                 energySymbol === 'X'
@@ -365,10 +372,11 @@
                                   : 'hover:bg-gray-300',
                               ]"
                               class="flex p-3 shadow-sm items-center justify-center w-10 h-10 text-xl"
-                              v-html="Xtype"
-                            />
+                              @click="changeEnergy('X')"
+                            >
+                              <NuxtImg :src="Xtype" />
+                            </button>
                             <button
-                              @click="changeEnergy('+')"
                               :class="[
                                 'rounded-md',
                                 energySymbol === '+'
@@ -376,10 +384,11 @@
                                   : 'hover:bg-gray-300',
                               ]"
                               class="flex p-2.5 shadow-sm items-center justify-center w-10 h-10 text-xl"
-                              v-html="Plustype"
-                            />
+                              @click="changeEnergy('+')"
+                            >
+                              <NuxtImg :src="Plustype" />
+                            </button>
                             <button
-                              @click="changeEnergy('-')"
                               :class="[
                                 'rounded-md',
                                 energySymbol === '-'
@@ -387,8 +396,10 @@
                                   : 'hover:bg-gray-300',
                               ]"
                               class="flex p-2.5 shadow-sm items-center justify-center w-10 h-10 text-xl"
-                              v-html="Minustype"
-                            />
+                              @click="changeEnergy('-')"
+                            >
+                              <NuxtImg :src="Minustype" />
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -411,7 +422,7 @@
                         v-model="attackDescription"
                         rows="3"
                         class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500"
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>
@@ -422,8 +433,8 @@
           <!-- Download Button -->
           <div class="mt-6">
             <button
-              @click="downloadCard"
               class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
+              @click="downloadCard"
             >
               Download Card
             </button>
@@ -435,7 +446,7 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { ChevronLeft, ChevronRight } from "lucide-vue-next";
 
 const {
   isImageLoaded,
@@ -464,6 +475,7 @@ const {
   isCollapsed,
   collapsible,
   croppedPokemonImage,
+  imageUploader,
 
   // Methods & other vars (assuming these are defined elsewhere in your setup)
   collapsibleStyle,
@@ -491,6 +503,16 @@ const limitInput = () => {
   if (valueAsString.length > maxLength) {
     energyCost.value = parseInt(valueAsString.slice(0, maxLength));
   }
+};
+</script>
+
+<script>
+export default {
+  methods: {
+    resetImageUploader() {
+      this.$refs.imageUploader.value = "";
+    },
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@
         <h4>* Please check your spam folder if no e-mail is received</h4>
       </div>
       <div class="max-w-2xl mx-auto">
-        <form @submit.prevent="submitForm" class="space-y-6">
+        <form class="space-y-6" @submit.prevent="submitForm">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label
@@ -15,9 +15,9 @@
                 >Name</label
               >
               <input
-                type="text"
                 id="name"
                 v-model="contactForm.name"
+                type="text"
                 class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
                 required
               />
@@ -29,9 +29,9 @@
                 >Email</label
               >
               <input
-                type="email"
                 id="email"
                 v-model="contactForm.email"
+                type="email"
                 class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
                 required
               />
@@ -44,9 +44,9 @@
               >Subject</label
             >
             <input
-              type="text"
               id="subject"
               v-model="contactForm.subject"
+              type="text"
               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
               required
             />
@@ -63,7 +63,7 @@
               rows="5"
               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
               required
-            ></textarea>
+            />
           </div>
           <div>
             <button
@@ -77,14 +77,12 @@
       </div>
     </div>
   </section>
-  <reusable-messageModal
-    title="Email sent"
-    message="Thank you for your e-mail! I'll do my best to reply as soon as possible!"
-  />
+  <reusable-messageModal :title="title" :message="message" />
 </template>
 
 <script setup>
-import emailjs from '@emailjs/browser';
+import { ref } from "vue";
+import emailjs from "@emailjs/browser";
 
 const config = useRuntimeConfig();
 
@@ -92,12 +90,17 @@ const publicKey = config.public.EMAILJS_PUBLIC_KEY;
 const serviceId = config.public.EMAILJS_SERVICE_ID;
 const templateId = config.public.EMAILJS_TEMPLATE_ID;
 
+const title = ref("Email sent");
+const message = ref(
+  "Thank you for your e-mail! I'll do my best to reply as soon as possible!",
+);
+
 // Contact form
 const contactForm = ref({
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
 });
 
 const submitForm = () => {
@@ -105,21 +108,18 @@ const submitForm = () => {
     emailjs.send(serviceId, templateId, contactForm.value, {
       publicKey,
     });
-    document.getElementById('reactiveModal').showModal();
+    document.getElementById("reactiveModal").showModal();
   } catch (err) {
-    if (err instanceof EmailJSResponseStatus) {
-      console.err('EMAILJS FAILED...', err);
-      return;
-    }
-    console.err('Please try again later', err);
+    title.value = "Email not sent";
+    message.value = "Please try again later." + err;
   }
 
   // Reset form
   contactForm.value = {
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   };
 };
 </script>

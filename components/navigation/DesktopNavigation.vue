@@ -1,20 +1,20 @@
 <template>
   <div class="hidden md:flex space-x-6">
-    <div v-for="item in navigation" class="flex items-center" :key="item.name">
+    <div v-for="item in navigation" :key="item.name" class="flex items-center">
       <a
         v-if="item.type === 'link'"
-        @click.prevent="unToggleDropdownAfterClick(item.href)"
         class="group relative inline-block cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all"
+        @click.prevent="unToggleDropdownAfterClick(item.href)"
       >
         {{ item.name }}
         <span
           class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-emerald-500 transition-all duration-300 group-hover:w-full"
-        ></span>
+        />
       </a>
       <a
         v-else-if="item.type === 'dropdown'"
-        @click.prevent="toggleDropdown"
         class="group relative inline-flex items-center cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all"
+        @click.prevent="toggleDropdown"
       >
         {{ item.name }}
         <svg
@@ -34,7 +34,7 @@
         <!-- Animated underline -->
         <span
           class="absolute left-0 -bottom-0.5 h-0.5 w-0 bg-emerald-500 transition-all duration-300 group-hover:w-full"
-        ></span>
+        />
       </a>
 
       <transition name="slide-fade" appear>
@@ -50,7 +50,7 @@
             <!-- Animated underline -->
             <span
               class="absolute left-0 bottom-0 w-full h-[2px] bg-emerald-500 scale-x-0 transition-all duration-300 group-hover:scale-x-65"
-            ></span>
+            />
           </NuxtLink>
         </div>
       </transition>
@@ -66,7 +66,9 @@ const { navigation, dropdownOpen, toggleDropdown, unToggleDropdownAfterClick } =
 <style scoped>
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: transform 0.5s ease, opacity 0.3s ease;
+  transition:
+    transform 0.5s ease,
+    opacity 0.3s ease;
 }
 
 .slide-fade-enter-from,

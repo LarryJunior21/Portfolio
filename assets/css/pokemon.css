@@ -29,7 +29,9 @@ input[type="number"] {
 .collapsable-div {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    max-height 0.5s ease-in-out,
+    opacity 0.3s ease-in-out;
 }
 
 .collapsable-div > .p-6 {
