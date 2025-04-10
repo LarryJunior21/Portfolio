@@ -5,18 +5,21 @@
         v-if="isLoading"
         class="flex flex-col items-center justify-center py-10"
       >
-        <span class="loading loading-spinner loading-lg text-primary"></span>
+        <span class="loading loading-spinner loading-lg text-primary" />
         <p class="mt-4 text-center text-gray-600">Loading image cropper...</p>
       </div>
 
-      <Cropper
-        :src="image"
-        :stencil-props="{
-          aspectRatio: 3 / 2,
-        }"
-        @change="change"
-        @ready="onCropperReady"
-      />
+      <div class="max-h-[500px]">
+        <Cropper
+          :src="props.image"
+          :stencil-props="{
+            aspectRatio: 3 / 2,
+          }"
+          :auto-zoom="true"
+          @change="onCropChange"
+          @ready="onCropperReady"
+        />
+      </div>
 
       <div class="modal-action">
         <form method="dialog">
@@ -30,9 +33,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css';
+import { ref, onMounted } from "vue";
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 const props = defineProps({
   image: String,
@@ -49,19 +52,20 @@ const onCropperReady = () => {
 
 // Set a timeout as a fallback in case the ready event doesn't fire
 onMounted(() => {
-  // If the cropper doesn't load within 3 seconds, hide the loader anyway
   setTimeout(() => {
     isLoading.value = false;
   }, 3000);
 });
 
-const updateImage = () => {
-  if (dataUrl) {
-    croppedPokemonImage.value = dataUrl;
-  }
+// Function to handle the cropper change (resize), but not update the image here
+const onCropChange = ({ canvas }) => {
+  dataUrl.value = canvas.toDataURL();
 };
 
-const change = ({ canvas }) => {
-  dataUrl.value = canvas.toDataURL();
+// Function to update the image only when the button is clicked
+const updateImage = () => {
+  if (dataUrl.value) {
+    croppedPokemonImage.value = dataUrl.value;
+  }
 };
 </script>
