@@ -9,7 +9,7 @@
         <p class="mt-4 text-center text-gray-600">Loading image cropper...</p>
       </div>
 
-      <div class="max-h-[500px]">
+      <div>
         <Cropper
           :src="pokemonImage"
           :stencil-props="{
