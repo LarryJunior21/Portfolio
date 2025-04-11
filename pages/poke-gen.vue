@@ -1,5 +1,5 @@
 <template>
-  <ui-animatedBackground />
+  <UiAnimatedBackground />
 
   <div
     class="flex justify-center min-h-screen pt-28 py-12 px-0 sm:px-6 lg:px-8 relative"
@@ -235,7 +235,7 @@
               />
             </div>
 
-            <reusable-imageCropper />
+            <ReusableImageCropper />
             <!-- Pokemon Image Upload -->
             <div>
               <label
