@@ -461,7 +461,7 @@ const {
   attackDescription,
   attackName,
   buttonClicked,
-
+  cardPreview,
   isFirstLoad,
   isCollapsed,
   collapsible,
