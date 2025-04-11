@@ -1,6 +1,5 @@
 import html2canvas from 'html2canvas-pro';
 import type { PokeCard } from '../types/poke-type';
-import { useCardAssets } from './card-assets';
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
