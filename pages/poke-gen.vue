@@ -51,7 +51,7 @@
                 preload
               >
                 <!-- Update the flag localy to use in other components -->
-                <div v-show="false">{{ (isImageLoaded = isLoaded) }}</div>
+                <div v-show="false">{{ isImageLoaded = isLoaded }}</div>
 
                 <!-- Show the actual image when loaded -->
                 <img v-if="isImageLoaded" v-bind="imgAttrs" :src="src" />
@@ -91,7 +91,7 @@
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
                 >
-                  {{ pokemonName || "Name" }}
+                  {{ pokemonName || 'Name' }}
                 </span>
               </div>
 
@@ -101,7 +101,7 @@
                 class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white"
               >
                 <div class="font-bold self-end text-[10px]">hp</div>
-                <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
+                <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
               </div>
               <!-- Attack -->
               <div
@@ -141,7 +141,7 @@
                     {{ energyCost }}
                     <!-- Hide the energy cost display pushing the name to the right -->
                     <div
-                      :class="{ hidden: !displayEnergySymbol }"
+                      v-if="displayEnergySymbol"
                       class="w-[8px] relative top-[1px] flex h-3 ml-1 text-black"
                     >
                       <NuxtImg :src="displayEnergySymbol" alt="Symbol" />
@@ -235,7 +235,7 @@
               />
             </div>
 
-            <reusable-imageCropper :image="pokemonImage" />
+            <reusable-imageCropper />
             <!-- Pokemon Image Upload -->
             <div>
               <label
@@ -446,14 +446,13 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from "lucide-vue-next";
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 const {
   isImageLoaded,
   currentCardTypeIndex,
   pokemonName,
   hp,
-  pokemonImage,
   energyType,
   energySymbol,
   displayEnergySymbol,
@@ -510,7 +509,7 @@ const limitInput = () => {
 export default {
   methods: {
     resetImageUploader() {
-      this.$refs.imageUploader.value = "";
+      this.$refs.imageUploader.value = '';
     },
   },
 };
