@@ -1,5 +1,5 @@
 <template>
-  <ui-animatedBackground />
+  <UiAnimatedBackground />
 
   <div
     class="flex justify-center min-h-screen pt-28 py-12 px-0 sm:px-6 lg:px-8 relative"
@@ -235,7 +235,7 @@
               />
             </div>
 
-            <reusable-imageCropper />
+            <ReusableImageCropper />
             <!-- Pokemon Image Upload -->
             <div>
               <label
@@ -447,51 +447,49 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { useCardAssets } from '~/composables/card-assets';
 
 const {
+  pokemonName,
   isImageLoaded,
   currentCardTypeIndex,
-  pokemonName,
   hp,
   energyType,
   energySymbol,
   displayEnergySymbol,
   energyCost,
   attackDescription,
-  cardPreview,
   attackName,
   buttonClicked,
-
-  // Scaling texts
-  nameWrapper,
-  nameText,
-  nameScale,
-  attackWrapper,
-  attackText,
-  attackScale,
-
+  cardPreview,
   isFirstLoad,
   isCollapsed,
   collapsible,
-  croppedPokemonImage,
-  imageUploader,
 
   // Methods & other vars (assuming these are defined elsewhere in your setup)
   collapsibleStyle,
-  cardTypes,
-  energyTypes,
-  Xtype,
-  Minustype,
-  Plustype,
   toggleCollapse,
   downloadCard,
-  handleImageUpload,
   prevCardType,
   nextCardType,
   limitHp,
   selectEnergyType,
   changeEnergy,
 } = usePoke();
+
+const { cardTypes, energyTypes, Xtype, Minustype, Plustype } = useCardAssets();
+
+const {
+  nameWrapper,
+  nameText,
+  nameScale,
+  attackWrapper,
+  attackText,
+  attackScale,
+} = useNameResizer();
+
+const { imageUploader, croppedPokemonImage, handleImageUpload } =
+  useImageUpload();
 
 const limitInput = () => {
   // Convert the value to a string to prevent exceeding 6 digits

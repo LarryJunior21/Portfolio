@@ -6,12 +6,13 @@
         class="flex flex-col items-center justify-center py-10"
       >
         <span class="loading loading-spinner loading-lg text-primary" />
-        <p class="mt-4 text-center text-gray-600">Loading image cropper...</p>
+        <p class="mt-4 text-center text-gray-100">Loading image cropper...</p>
       </div>
 
-      <div>
+      <div v-if="srcImageFromUploader && !isLoading">
         <Cropper
-          :src="pokemonImage"
+          class="cropper-class"
+          :src="srcImageFromUploader"
           :stencil-props="{
             aspectRatio: 3 / 2,
           }"
@@ -37,7 +38,7 @@ import { ref, onMounted } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 
-const { croppedPokemonImage, pokemonImage } = usePoke();
+const { croppedPokemonImage, srcImageFromUploader } = useImageUpload();
 
 const dataUrl = ref(null);
 const isLoading = ref(true);
@@ -66,3 +67,14 @@ const updateImage = () => {
   }
 };
 </script>
+
+<!-- Style for Cropper can be scoped but not the stretcher -->
+<style>
+.cropper-class {
+  max-height: 500px;
+
+  .vue-advanced-cropper__stretcher {
+    max-height: 500px;
+  }
+}
+</style>

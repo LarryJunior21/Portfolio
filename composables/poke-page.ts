@@ -1,65 +1,27 @@
-import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
-import { useState } from 'nuxt/app';
 import html2canvas from 'html2canvas-pro';
 import type { PokeCard } from '../types/poke-type';
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
   const store = usePokeStore();
-  // Card types (backgrounds)
-  const cardTypes = ref([
-    '/images/pokemon-cards/card-water.png',
-    '/images/pokemon-cards/card-fire.png',
-    '/images/pokemon-cards/card-grass.png',
-    '/images/pokemon-cards/card-lightning.png',
-    '/images/pokemon-cards/card-psychic.png',
-    '/images/pokemon-cards/card-fighting.png',
-    '/images/pokemon-cards/card-dark.png',
-  ]);
+  const { cardTypes, Xtype, Plustype, Minustype } = useCardAssets();
+  const { croppedPokemonImage } = useImageUpload();
 
-  // Energy types
-  const energyTypes = ref([
-    '/images/pokemon-cards/energy/fire.png',
-    '/images/pokemon-cards/energy/water.png',
-    '/images/pokemon-cards/energy/grass.png',
-    '/images/pokemon-cards/energy/lightning.png',
-    '/images/pokemon-cards/energy/psychic.png',
-    '/images/pokemon-cards/energy/fighting.png',
-    '/images/pokemon-cards/energy/dark.png',
-    '/images/pokemon-cards/energy/fairy.png',
-    '/images/pokemon-cards/energy/metal.png',
-    '/images/pokemon-cards/energy/dragon.png',
-    '/images/pokemon-cards/energy/colorless.png',
-  ]);
-
-  // Attack types SVGs
-  const Xtype = '/images/icons/x_sign.svg';
-  const Plustype = '/images/icons/plus_sign.svg';
-  const Minustype = '/images/icons/minus_sign.svg';
-
-  // State
+  // Name States
   const isImageLoaded = useState('isImageLoaded', () => false);
-  const currentCardTypeIndex = ref(0);
-  const pokemonName = ref('');
+  const pokemonName = useState<string>('pokemonName', () => '');
+  const attackName = useState<string>('attackName', () => '');
+  const cardPreview = ref(null);
+
   const hp = ref(100);
-  const pokemonImage = useState('pokemonImage', () => '');
+  const currentCardTypeIndex = ref(0);
   const energyType = ref('');
   const energySymbol = ref('');
   const displayEnergySymbol = ref('');
   const energyCost = ref('');
   const attackDescription = ref('');
-  const cardPreview = ref(null);
-  const attackName = ref('');
-  const buttonClicked = ref('');
-  const croppedPokemonImage = useState('croppedPokemonImage', () => '');
 
-  // Relates to the name and attack name, allowing the names to scale down according to their size
-  const nameWrapper = ref<HTMLElement | null>(null);
-  const attackWrapper = ref<HTMLElement | null>(null);
-  const nameText = ref<HTMLElement | null>(null);
-  const attackText = ref<HTMLElement | null>(null);
-  const nameScale = ref(1);
-  const attackScale = ref(1);
+  const buttonClicked = ref('');
 
   // Check for the first load of the page
   const isFirstLoad = ref(true);
@@ -70,33 +32,12 @@ export const usePoke = () => {
   // Ref to get the collapsible element
   const collapsible = ref(null);
 
-  const imageUploader = ref<HTMLInputElement | null>(null);
-
   // Open cropp modal programatically after uploading the image
-  const modal = ref<HTMLDialogElement | null>(null);
 
   const currentCard = useState('currentCard', () => ({}));
   /* ---------------------CONSTS AND STATES - END--------------------------- */
 
   /* ---------------------FUNCTIONS - START--------------------------- */
-  const updateNameScale = () => {
-    if (!nameWrapper.value || !nameText.value) return;
-    const wrapperWidth = nameWrapper?.value?.offsetWidth;
-    const textWidth = nameText.value.scrollWidth;
-
-    // Only nameScale down if text overflows
-    nameScale.value = textWidth > wrapperWidth ? wrapperWidth / textWidth : 1;
-  };
-
-  const updateAttackScale = () => {
-    if (!attackWrapper.value || !attackText.value) return;
-    const wrapperWidth = attackWrapper?.value?.offsetWidth;
-    const textWidth = attackText.value.scrollWidth;
-
-    // Only nameScale down if text overflows
-    attackScale.value = textWidth > wrapperWidth ? wrapperWidth / textWidth : 1;
-  };
-
   // HP limit function
   const limitHp = () => {
     if (hp.value > 340) {
@@ -150,25 +91,6 @@ export const usePoke = () => {
       cardTypes.value.length;
   };
 
-  // Handle image upload
-  const handleImageUpload = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-
-    // Remove the cropped image if another one was already uploaded
-    if (croppedPokemonImage.value !== '') croppedPokemonImage.value = '';
-
-    const file = target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        pokemonImage.value = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-      modal?.value?.showModal();
-    }
-  };
-
   // Download card as image
   const downloadCard = async () => {
     if (!cardPreview.value) return;
@@ -208,32 +130,9 @@ export const usePoke = () => {
       isFirstLoad.value = false; // Set to false after the first load
     }
   });
-
-  onMounted(() => {
-    updateNameScale();
-    updateAttackScale();
-
-    window.addEventListener('resize', () => {
-      updateNameScale();
-      updateAttackScale();
-    });
-    modal.value = document.getElementById(
-      'cropImageModal'
-    ) as HTMLDialogElement;
-  });
   /* ---------------------LIFE CYCLE HOOKS - END--------------------------- */
 
   /* ---------------------WATCHERS - START--------------------------- */
-  watch([pokemonName, attackName], async (newValues, oldValues) => {
-    await nextTick();
-    if (newValues[0] !== oldValues[0]) {
-      updateNameScale();
-    }
-    if (newValues[1] !== oldValues[1]) {
-      updateAttackScale();
-    }
-  });
-
   // Also watch for changes to ensure the limit is enforced
   watch(hp, (newValue: number) => {
     if (newValue > 340) {
@@ -267,7 +166,6 @@ export const usePoke = () => {
     currentCardTypeIndex,
     pokemonName,
     hp,
-    pokemonImage,
     energyType,
     energySymbol,
     displayEnergySymbol,
@@ -276,31 +174,16 @@ export const usePoke = () => {
     cardPreview,
     attackName,
     buttonClicked,
-    // Scaling texts
-    nameWrapper,
-    nameText,
-    nameScale,
-    attackWrapper,
-    attackText,
-    attackScale,
 
     isFirstLoad,
     isCollapsed,
     collapsible,
 
-    imageUploader,
-
     // Methods & other vars (assuming these are defined elsewhere in your setup)
     collapsibleStyle,
     cardTypes,
-    energyTypes,
-    Xtype,
-    Minustype,
-    Plustype,
-    croppedPokemonImage,
     toggleCollapse,
     downloadCard,
-    handleImageUpload,
     prevCardType,
     nextCardType,
     limitHp,

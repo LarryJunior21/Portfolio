@@ -13,7 +13,7 @@
       </a>
 
       <!-- Desktop menu -->
-      <navigation-DesktopNavigation />
+      <NavigationDesktopNavigation />
       <!-- Send true as a parameter so the function checks the button was clicked and not the outside drawer -->
       <button
         class="md:hidden z-50 text-gray-600 dark:text-gray-300 relative w-10 h-10"
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <navigation-MobileNavigation />
+    <NavigationMobileNavigation />
   </nav>
 </template>
 

@@ -77,12 +77,12 @@
       </div>
     </div>
   </section>
-  <reusable-messageModal :title="title" :message="message" />
+  <ReusableMessageModal :title="title" :message="message" />
 </template>
 
 <script setup>
-import { ref } from "vue";
-import emailjs from "@emailjs/browser";
+import { ref } from 'vue';
+import emailjs from '@emailjs/browser';
 
 const config = useRuntimeConfig();
 
@@ -90,17 +90,17 @@ const publicKey = config.public.EMAILJS_PUBLIC_KEY;
 const serviceId = config.public.EMAILJS_SERVICE_ID;
 const templateId = config.public.EMAILJS_TEMPLATE_ID;
 
-const title = ref("Email sent");
+const title = ref('Email sent');
 const message = ref(
-  "Thank you for your e-mail! I'll do my best to reply as soon as possible!",
+  "Thank you for your e-mail! I'll do my best to reply as soon as possible!"
 );
 
 // Contact form
 const contactForm = ref({
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
 });
 
 const submitForm = () => {
@@ -108,18 +108,18 @@ const submitForm = () => {
     emailjs.send(serviceId, templateId, contactForm.value, {
       publicKey,
     });
-    document.getElementById("reactiveModal").showModal();
+    document.getElementById('reactiveModal').showModal();
   } catch (err) {
-    title.value = "Email not sent";
-    message.value = "Please try again later." + err;
+    title.value = 'Email not sent';
+    message.value = 'Please try again later.' + err;
   }
 
   // Reset form
   contactForm.value = {
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   };
 };
 </script>
