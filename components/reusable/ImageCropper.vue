@@ -11,7 +11,7 @@
 
       <div class="max-h-[500px]">
         <Cropper
-          :src="props.image"
+          :src="pokemonImage"
           :stencil-props="{
             aspectRatio: 3 / 2,
           }"
@@ -33,14 +33,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { Cropper } from "vue-advanced-cropper";
-import "vue-advanced-cropper/dist/style.css";
+import { ref, onMounted } from 'vue';
+import { Cropper } from 'vue-advanced-cropper';
+import 'vue-advanced-cropper/dist/style.css';
+import { usePoke } from '../composables/pokePageComposable';
 
-const props = defineProps({
-  image: String,
-});
-const { croppedPokemonImage } = usePoke();
+const { croppedPokemonImage, pokemonImage } = usePoke();
 
 const dataUrl = ref(null);
 const isLoading = ref(true);
