@@ -463,14 +463,6 @@ const {
   attackName,
   buttonClicked,
 
-  // Scaling texts
-  nameWrapper,
-  nameText,
-  nameScale,
-  attackWrapper,
-  attackText,
-  attackScale,
-
   isFirstLoad,
   isCollapsed,
   collapsible,
@@ -490,6 +482,15 @@ const {
 } = usePoke();
 
 const { cardTypes, energyTypes, Xtype, Minustype, Plustype } = useCardAssets();
+
+const {
+  nameWrapper,
+  nameText,
+  nameScale,
+  attackWrapper,
+  attackText,
+  attackScale,
+} = useNameResizer();
 
 const limitInput = () => {
   // Convert the value to a string to prevent exceeding 6 digits
