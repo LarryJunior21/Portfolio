@@ -1,20 +1,3 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": {
-    "module": "Node16",
-    "moduleResolution": "node16",
-    "types": ["@types/node", "nuxt", "vue"],
-    "baseUrl": ".",
-    "paths": {
-      "vue": ["./node_modules/vue"]
-    }
-  },
-  "exclude": ["node_modules"],
-  "include": [
-    "types",
-    "nuxt.config.ts",
-    "app.vue",
-    "components/**/*.vue",
-    "pages/**/*.vue"
-  ]
+  "extends": "./.nuxt/tsconfig.json"
 }

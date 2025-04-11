@@ -1,21 +1,19 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
 
   app: {
     head: {
-      title: "Larry Portfolio",
+      title: 'Larry Portfolio',
       meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { id: "description", name: "description", content: "Larry Portfolio" },
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { id: 'description', name: 'description', content: 'Larry Portfolio' },
       ],
     },
   },
-
-  plugins: ["~/plugins/icons.ts"],
 
   vite: {
     plugins: [tailwindcss()],
@@ -33,6 +31,11 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxt/image", "@nuxt/eslint"],
-  compatibilityDate: "2025-04-10",
+  modules: [
+    '@nuxt/image',
+    '@nuxt/eslint',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+  ],
+  compatibilityDate: '2025-04-10',
 });
