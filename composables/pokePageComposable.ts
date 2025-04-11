@@ -1,9 +1,11 @@
 import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
 import { useState } from 'nuxt/app';
 import html2canvas from 'html2canvas-pro';
+import type { PokeCard } from '../types/poketype';
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
+  const store = usePokeStore();
   // Card types (backgrounds)
   const cardTypes = ref([
     '/images/pokemon-cards/card-water.png',
@@ -72,6 +74,8 @@ export const usePoke = () => {
 
   // Open cropp modal programatically after uploading the image
   const modal = ref<HTMLDialogElement | null>(null);
+
+  const currentCard = useState('currentCard', () => ({}));
   /* ---------------------CONSTS AND STATES - END--------------------------- */
 
   /* ---------------------FUNCTIONS - START--------------------------- */
@@ -238,6 +242,23 @@ export const usePoke = () => {
       hp.value = 0;
     }
   });
+
+  watch(
+    [pokemonName, hp, attackName, attackDescription, energyType, energyCost],
+    () => {
+      currentCard.value = {
+        id: 0,
+        name: pokemonName.value,
+        hp: hp.value,
+        image: croppedPokemonImage,
+        attackName: attackName.value,
+        // energyType: energyType.value,
+        energyCost: energyCost.value,
+        attackDescription: attackDescription.value,
+      };
+      store.updateCard(currentCard.value as PokeCard);
+    }
+  );
   /* ---------------------WATCHERS - END--------------------------- */
 
   return {
