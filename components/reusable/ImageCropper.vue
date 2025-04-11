@@ -11,7 +11,7 @@
 
       <div>
         <Cropper
-          :src="pokemonImage"
+          :src="srcImageFromUploader"
           :stencil-props="{
             aspectRatio: 3 / 2,
           }"
@@ -37,7 +37,7 @@ import { ref, onMounted } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 
-const { croppedPokemonImage, pokemonImage } = usePoke();
+const { croppedPokemonImage, srcImageFromUploader } = useImageUpload();
 
 const dataUrl = ref(null);
 const isLoading = ref(true);

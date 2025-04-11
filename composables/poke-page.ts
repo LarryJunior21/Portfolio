@@ -1,27 +1,26 @@
 import html2canvas from 'html2canvas-pro';
 import type { PokeCard } from '../types/poke-type';
-import { useCardAssets } from './use-card-assets';
+import { useCardAssets } from './card-assets';
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
   const store = usePokeStore();
   const { cardTypes, Xtype, Plustype, Minustype } = useCardAssets();
+  const { croppedPokemonImage } = useImageUpload();
 
   // Name States
   const isImageLoaded = useState('isImageLoaded', () => false);
   const pokemonName = useState<string>('pokemonName', () => '');
   const attackName = useState<string>('attackName', () => '');
+  const cardPreview = ref(null);
 
   const hp = ref(100);
   const currentCardTypeIndex = ref(0);
-  const pokemonImage = useState('pokemonImage', () => '');
   const energyType = ref('');
   const energySymbol = ref('');
   const displayEnergySymbol = ref('');
   const energyCost = ref('');
   const attackDescription = ref('');
-  const cardPreview = ref(null);
-  const croppedPokemonImage = useState('croppedPokemonImage', () => '');
 
   const buttonClicked = ref('');
 
@@ -34,10 +33,7 @@ export const usePoke = () => {
   // Ref to get the collapsible element
   const collapsible = ref(null);
 
-  const imageUploader = ref<HTMLInputElement | null>(null);
-
   // Open cropp modal programatically after uploading the image
-  const modal = ref<HTMLDialogElement | null>(null);
 
   const currentCard = useState('currentCard', () => ({}));
   /* ---------------------CONSTS AND STATES - END--------------------------- */
@@ -96,25 +92,6 @@ export const usePoke = () => {
       cardTypes.value.length;
   };
 
-  // Handle image upload
-  const handleImageUpload = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-
-    // Remove the cropped image if another one was already uploaded
-    if (croppedPokemonImage.value !== '') croppedPokemonImage.value = '';
-
-    const file = target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        pokemonImage.value = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-      modal?.value?.showModal();
-    }
-  };
-
   // Download card as image
   const downloadCard = async () => {
     if (!cardPreview.value) return;
@@ -154,12 +131,6 @@ export const usePoke = () => {
       isFirstLoad.value = false; // Set to false after the first load
     }
   });
-
-  onMounted(() => {
-    modal.value = document.getElementById(
-      'cropImageModal'
-    ) as HTMLDialogElement;
-  });
   /* ---------------------LIFE CYCLE HOOKS - END--------------------------- */
 
   /* ---------------------WATCHERS - START--------------------------- */
@@ -196,7 +167,6 @@ export const usePoke = () => {
     currentCardTypeIndex,
     pokemonName,
     hp,
-    pokemonImage,
     energyType,
     energySymbol,
     displayEnergySymbol,
@@ -210,15 +180,11 @@ export const usePoke = () => {
     isCollapsed,
     collapsible,
 
-    imageUploader,
-
     // Methods & other vars (assuming these are defined elsewhere in your setup)
     collapsibleStyle,
     cardTypes,
-    croppedPokemonImage,
     toggleCollapse,
     downloadCard,
-    handleImageUpload,
     prevCardType,
     nextCardType,
     limitHp,

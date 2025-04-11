@@ -447,33 +447,29 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { useCardAssets } from '~/composables/use-card-assets';
+import { useCardAssets } from '~/composables/card-assets';
 
 const {
+  pokemonName,
   isImageLoaded,
   currentCardTypeIndex,
-  pokemonName,
   hp,
   energyType,
   energySymbol,
   displayEnergySymbol,
   energyCost,
   attackDescription,
-  cardPreview,
   attackName,
   buttonClicked,
 
   isFirstLoad,
   isCollapsed,
   collapsible,
-  croppedPokemonImage,
-  imageUploader,
 
   // Methods & other vars (assuming these are defined elsewhere in your setup)
   collapsibleStyle,
   toggleCollapse,
   downloadCard,
-  handleImageUpload,
   prevCardType,
   nextCardType,
   limitHp,
@@ -491,6 +487,9 @@ const {
   attackText,
   attackScale,
 } = useNameResizer();
+
+const { imageUploader, croppedPokemonImage, handleImageUpload } =
+  useImageUpload();
 
 const limitInput = () => {
   // Convert the value to a string to prevent exceeding 6 digits
