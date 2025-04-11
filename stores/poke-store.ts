@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { PokeCard } from '../types/poketype';
+import type { PokeCard } from '../types/poke-type';
 
 const card = {
   id: 0,

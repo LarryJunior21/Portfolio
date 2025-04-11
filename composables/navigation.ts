@@ -1,6 +1,6 @@
 import { useState, useRoute } from 'nuxt/app';
 import { ref } from 'vue';
-import type { NavNode } from '@/types/generaltypes';
+import type { NavNode } from '~/types/general-types';
 
 export const useNavigation = () => {
   // Header title

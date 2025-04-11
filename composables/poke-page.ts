@@ -1,7 +1,7 @@
 import { ref, onMounted, watch, nextTick, computed, onBeforeMount } from 'vue';
 import { useState } from 'nuxt/app';
 import html2canvas from 'html2canvas-pro';
-import type { PokeCard } from '../types/poketype';
+import type { PokeCard } from '../types/poke-type';
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
