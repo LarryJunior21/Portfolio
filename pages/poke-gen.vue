@@ -447,6 +447,7 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { useCardAssets } from '~/composables/use-card-assets';
 
 const {
   isImageLoaded,
@@ -478,11 +479,6 @@ const {
 
   // Methods & other vars (assuming these are defined elsewhere in your setup)
   collapsibleStyle,
-  cardTypes,
-  energyTypes,
-  Xtype,
-  Minustype,
-  Plustype,
   toggleCollapse,
   downloadCard,
   handleImageUpload,
@@ -492,6 +488,8 @@ const {
   selectEnergyType,
   changeEnergy,
 } = usePoke();
+
+const { cardTypes, energyTypes, Xtype, Minustype, Plustype } = useCardAssets();
 
 const limitInput = () => {
   // Convert the value to a string to prevent exceeding 6 digits
