@@ -36,7 +36,6 @@
 import { ref, onMounted } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
-import { usePoke } from '../composables/pokePageComposable';
 
 const { croppedPokemonImage, pokemonImage } = usePoke();
 
