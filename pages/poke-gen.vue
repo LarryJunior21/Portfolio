@@ -91,7 +91,7 @@
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
                 >
-                  {{ pokemonName || "Name" }}
+                  {{ pokemonName || 'Name' }}
                 </span>
               </div>
 
@@ -101,7 +101,7 @@
                 class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white z-10"
               >
                 <div class="font-bold self-end text-[10px]">hp</div>
-                <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
+                <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
               </div>
               <!-- Attack -->
               <div
@@ -446,8 +446,10 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from "lucide-vue-next";
-import { useCardAssets } from "~/composables/card-assets";
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { useCardAssets } from '~/composables/card-assets';
+
+// const { handleLogin } = useLogin();
 
 const {
   pokemonName,
@@ -507,7 +509,7 @@ const limitInput = () => {
 export default {
   methods: {
     resetImageUploader() {
-      this.$refs.imageUploader.value = "";
+      this.$refs.imageUploader.value = '';
     },
   },
 };
