@@ -39,11 +39,11 @@
               <ChevronLeft v-else class="h-8 w-8 text-gray-700" />
             </button>
             <!-- Card Preview -->
-            <div ref="cardPreview" class="relative w-90 h-125">
+            <div ref="cardPreview" class="relative w-90 h-125 z-9 flex">
               <NuxtImg
                 :key="cardTypes[currentCardTypeIndex]"
                 v-slot="{ src, isLoaded, imgAttrs }"
-                class="w-full h-full object-contain"
+                class="w-full h-full object-contain z-10"
                 :src="cardTypes[currentCardTypeIndex]"
                 alt="image"
                 :custom="true"
@@ -68,7 +68,7 @@
               if the card image is loaded so the pokemon image doesn't stay floating -->
               <div
                 v-if="croppedPokemonImage && isImageLoaded"
-                class="absolute top-[52.5px] h-[195px] w-[292px] left-[11.2rem] transform -translate-x-1/2 flex items-center justify-center overflow-hidden"
+                class="absolute top-[52.5px] h-[195px] w-[292px] left-[11.2rem] transform -translate-x-1/2 flex items-center justify-center overflow-hidden z-8"
               >
                 <img
                   class="w-full h-full object-contain"
@@ -81,7 +81,7 @@
               <div
                 v-if="isImageLoaded"
                 ref="nameWrapper"
-                class="absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px]"
+                class="absolute top-[1.2rem] left-[5.5rem] w-[9.5rem] overflow-hidden flex h-[25px] z-10"
               >
                 <span
                   ref="nameText"
@@ -91,22 +91,22 @@
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
                 >
-                  {{ pokemonName || 'Name' }}
+                  {{ pokemonName || "Name" }}
                 </span>
               </div>
 
               <!-- HP -->
               <div
                 v-if="isImageLoaded"
-                class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white"
+                class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white z-10"
               >
                 <div class="font-bold self-end text-[10px]">hp</div>
-                <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
+                <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
               </div>
               <!-- Attack -->
               <div
                 v-if="isImageLoaded"
-                class="absolute bottom-[20%] left-1/2 transform text-gray-900 -translate-x-1/2 w-[80%] text-center"
+                class="absolute bottom-[20%] left-1/2 transform text-gray-900 -translate-x-1/2 w-[80%] text-center z-10"
                 :class="{ 'text-white': currentCardTypeIndex === 6 }"
               >
                 <div class="flex items-center justify-between mb-1 gap-1">
@@ -446,8 +446,8 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { useCardAssets } from '~/composables/card-assets';
+import { ChevronLeft, ChevronRight } from "lucide-vue-next";
+import { useCardAssets } from "~/composables/card-assets";
 
 const {
   pokemonName,
@@ -507,7 +507,7 @@ const limitInput = () => {
 export default {
   methods: {
     resetImageUploader() {
-      this.$refs.imageUploader.value = '';
+      this.$refs.imageUploader.value = "";
     },
   },
 };
