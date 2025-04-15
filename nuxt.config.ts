@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
+    '@nuxtjs/supabase',
   ],
   compatibilityDate: '2025-04-10',
+  supabase: {
+    redirect: false,
+  },
 });
