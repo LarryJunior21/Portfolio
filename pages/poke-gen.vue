@@ -58,7 +58,7 @@
                   v-if="isImageLoaded"
                   v-bind="imgAttrs"
                   :src="src"
-                  class="shadow-xl drop-shadow-xl rounded-4xl"
+                  class="shadow-xl drop-shadow-xl rounded-2xl"
                 />
 
                 <!-- Show a placeholder while loading -->
