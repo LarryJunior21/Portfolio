@@ -1,6 +1,11 @@
 <template>
   <div class="hidden md:flex space-x-6">
-    <div v-for="item in navigation" :key="item.name" class="flex items-center">
+    <div
+      v-for="(item, index) in navigation"
+      :key="item.name"
+      class="flex items-center"
+      :class="{ 'mr-3': index === navigation.length - 1 && isPokePage }"
+    >
       <a
         v-if="item.type === 'link'"
         class="group relative inline-block cursor-pointer text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all"
@@ -55,12 +60,20 @@
         </div>
       </transition>
     </div>
+    <div v-if="isPokePage" class="divider divider-horizontal ml-0"></div>
+    <ReusableLoginAvatar v-if="isPokePage" />
   </div>
 </template>
 
 <script setup>
+import { Routes } from '@/types/general-types.d';
+
 const { navigation, dropdownOpen, toggleDropdown, unToggleDropdownAfterClick } =
   useNavigation();
+
+const route = useRoute();
+
+const isPokePage = route.path === Routes.PokePage;
 </script>
 
 <style scoped>

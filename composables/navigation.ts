@@ -1,6 +1,5 @@
-import { useState, useRoute } from 'nuxt/app';
-import { ref } from 'vue';
-import type { NavNode } from '~/types/general-types';
+import { Routes } from '@/types/general-types.d';
+import type { NavNode } from '@/types/general-types';
 
 export const useNavigation = () => {
   // Header title
@@ -8,15 +7,15 @@ export const useNavigation = () => {
 
   // Navigation Options
   const navigation = ref<NavNode[]>([
-    { name: 'Home', type: 'link', href: '/#home' },
-    { name: 'About', type: 'link', href: '/#about' },
-    { name: 'Projects', type: 'link', href: '/#projects' },
-    { name: 'Contact', type: 'link', href: '/#contact' },
+    { name: 'Home', type: 'link', href: Routes.Home },
+    { name: 'About', type: 'link', href: Routes.About },
+    { name: 'Projects', type: 'link', href: Routes.Projects },
+    { name: 'Contact', type: 'link', href: Routes.Contact },
     {
       name: 'Examples',
       type: 'dropdown',
       isOpen: false,
-      items: [{ name: 'PokeGen', href: '/poke-gen' }],
+      items: [{ name: 'PokeGen', href: Routes.PokePage }],
     },
   ]);
 

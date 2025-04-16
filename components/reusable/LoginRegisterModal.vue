@@ -1,7 +1,7 @@
 <template>
-  <dialog id="login_register_modal" class="modal">
+  <dialog id="login_register_modal" class="modal transition-override">
     <div
-      class="modal-box max-h-full h-auto shadow-md bg-white/90 dark:bg-gray-800/99"
+      class="modal-box max-h-full h-auto shadow-md bg-white dark:bg-gray-800 hide-scroll"
     >
       <form method="dialog">
         <button
@@ -11,12 +11,12 @@
         </button>
       </form>
       <label
-        @click.stop="preventSwapClick"
         class="swap swap-flip text-9xl justify-self-center cursor-auto grid"
+        @click.stop="preventSwapClick"
       >
         <input
-          type="checkbox"
           id="box-swap"
+          type="checkbox"
           class="pointer-events-none hidden"
         />
         <div class="swap-off">
@@ -35,11 +35,11 @@
             <button class="btn btn-neutral mt-4">Login</button>
           </fieldset>
 
-          <div class="text-sm mt-6 text-left">
+          <div class="text-sm mt-6 text-center">
             Don't have an account?
             <span
-              @click.prevent="toggleSwap"
               class="text-purple-600 font-semibold cursor-pointer"
+              @click.prevent="toggleSwap"
               >Click here to register</span
             >
           </div>
@@ -66,13 +66,13 @@
             <button class="btn btn-neutral mt-4">Create Account</button>
           </fieldset>
 
-          <div class="text-sm mt-6 text-left">
+          <div class="text-sm mt-6 text-center">
             Already have an account?
             <span
-              @click.prevent="toggleSwap"
               class="text-purple-600 font-semibold cursor-pointer"
-              >Click here to login</span
-            >
+              @click.prevent="toggleSwap"
+              >Click here to login
+            </span>
           </div>
         </div>
       </label>
@@ -84,9 +84,9 @@
 const isLogin = ref(false);
 
 const toggleSwap = () => {
-  const checkbox = document.getElementById("box-swap");
+  const checkbox = document.getElementById('box-swap');
   checkbox.checked = !checkbox.checked;
-  checkbox.dispatchEvent(new Event("change"));
+  checkbox.dispatchEvent(new Event('change'));
   isLogin.value = !isLogin.value;
 };
 
@@ -95,10 +95,10 @@ const preventSwapClick = (e) => {
 
   // If the click came from an actual input or button, let it through
   const isFormControl =
-    target.closest("input") ||
-    target.closest("button") ||
-    target.closest("select") ||
-    target.closest("textarea");
+    target.closest('input') ||
+    target.closest('button') ||
+    target.closest('select') ||
+    target.closest('textarea');
 
   if (!isFormControl) {
     // Prevent the label click from toggling the checkbox
@@ -111,5 +111,17 @@ const preventSwapClick = (e) => {
 input:focus {
   outline: none;
   border: none;
+}
+
+.hide-scroll {
+  scrollbar-width: none;
+}
+
+.transition-override {
+  transition:
+    transform 0.3s ease-out,
+    visibility 0s,
+    background-color 0.3s ease-out,
+    opacity 0.1s ease-out;
 }
 </style>
