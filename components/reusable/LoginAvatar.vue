@@ -15,7 +15,7 @@
   <div
     class="avatar absolute grid h-fit top-[12.9%] right-[15%] drop-shadow-sm cursor-pointer"
   >
-    <!-- Circular Avatar -->
+    <!-- Circular Avatarf -->
     <div
       class="w-10 h-10 rounded-full overflow-hidden ring ring-emerald-400 ring-offset-2 ring-offset-emerald-600"
     >
