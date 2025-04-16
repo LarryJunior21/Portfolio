@@ -1,5 +1,5 @@
-import html2canvas from 'html2canvas-pro';
-import type { PokeCard } from '../types/poke-type';
+import html2canvas from "html2canvas-pro";
+import type { PokeCard } from "../types/poke-type";
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
@@ -8,20 +8,22 @@ export const usePoke = () => {
   const { croppedPokemonImage } = useImageUpload();
 
   // Name States
-  const isImageLoaded = useState('isImageLoaded', () => false);
-  const pokemonName = useState<string>('pokemonName', () => '');
-  const attackName = useState<string>('attackName', () => '');
+  const isImageLoaded = useState("isImageLoaded", () => false);
+  const pokemonName = useState<string>("pokemonName", () => "");
+  const attackName = useState<string>("attackName", () => "");
   const cardPreview = ref(null);
 
+  // Pokemon parameters
   const hp = ref(100);
   const currentCardTypeIndex = ref(0);
-  const energyType = ref('');
-  const energySymbol = ref('');
-  const displayEnergySymbol = ref('');
-  const energyCost = ref('');
-  const attackDescription = ref('');
+  const energyType = ref("");
+  const energySymbol = ref("");
+  const displayEnergySymbol = ref("");
+  const energyCost = ref("");
+  const attackDescription = ref("");
 
-  const buttonClicked = ref('');
+  // Check for which arrow button was clicked for navigating between cards
+  const buttonClicked = ref("");
 
   // Check for the first load of the page
   const isFirstLoad = ref(true);
@@ -32,9 +34,8 @@ export const usePoke = () => {
   // Ref to get the collapsible element
   const collapsible = ref(null);
 
-  // Open cropp modal programatically after uploading the image
-
-  const currentCard = useState('currentCard', () => ({}));
+  // Save current card to localhost for persistance
+  const currentCard = useState("currentCard", () => ({}));
   /* ---------------------CONSTS AND STATES - END--------------------------- */
 
   /* ---------------------FUNCTIONS - START--------------------------- */
@@ -49,34 +50,34 @@ export const usePoke = () => {
 
   const selectEnergyType = (energy: string) => {
     // Allows the user to select and disselect
-    energyType.value = energyType.value === energy ? '' : energy;
-    if (energyType.value === '') {
-      energySymbol.value = '';
+    energyType.value = energyType.value === energy ? "" : energy;
+    if (energyType.value === "") {
+      energySymbol.value = "";
     }
   };
 
   const changeEnergy = (newValue: string) => {
-    energySymbol.value = newValue == energySymbol.value ? '' : newValue;
+    energySymbol.value = newValue == energySymbol.value ? "" : newValue;
 
     switch (energySymbol.value) {
-      case 'X':
+      case "X":
         displayEnergySymbol.value = Xtype;
         break;
-      case '+':
+      case "+":
         displayEnergySymbol.value = Plustype;
         break;
-      case '-':
+      case "-":
         displayEnergySymbol.value = Minustype;
         break;
       default:
-        displayEnergySymbol.value = '';
+        displayEnergySymbol.value = "";
     }
   };
 
   // Navigation functions
   const nextCardType = () => {
     isImageLoaded.value = false;
-    buttonClicked.value = 'next';
+    buttonClicked.value = "next";
 
     currentCardTypeIndex.value =
       (currentCardTypeIndex.value + 1) % cardTypes.value.length;
@@ -84,7 +85,7 @@ export const usePoke = () => {
 
   const prevCardType = () => {
     isImageLoaded.value = false;
-    buttonClicked.value = 'prev';
+    buttonClicked.value = "prev";
 
     currentCardTypeIndex.value =
       (currentCardTypeIndex.value - 1 + cardTypes.value.length) %
@@ -102,20 +103,20 @@ export const usePoke = () => {
         backgroundColor: null,
       });
 
-      const link = document.createElement('a');
-      link.download = `${pokemonName.value || 'pokemon'}-card.png`;
-      link.href = canvas.toDataURL('image/png');
+      const link = document.createElement("a");
+      link.download = `${pokemonName.value || "pokemon"}-card.png`;
+      link.href = canvas.toDataURL("image/png");
       link.click();
     } catch (error) {
-      alert('Failed to generate card image. Please try again.' + error);
+      alert("Failed to generate card image. Please try again." + error);
     }
   };
 
   // Computed style for animation
   const collapsibleStyle = computed(() => {
     return isCollapsed.value
-      ? { maxHeight: '1000px', opacity: 1 } // Open state style
-      : { maxHeight: '0', opacity: 0 }; // Collapsed state style
+      ? { maxHeight: "1000px", opacity: 1 } // Open state style
+      : { maxHeight: "0", opacity: 0 }; // Collapsed state style
   });
 
   // Toggle function to change collapse state
@@ -142,6 +143,7 @@ export const usePoke = () => {
     }
   });
 
+  // Save current card to localhost for persistance
   watch(
     [pokemonName, hp, attackName, attackDescription, energyType, energyCost],
     () => {

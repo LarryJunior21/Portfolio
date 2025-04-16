@@ -7,6 +7,7 @@
     <div
       class="flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg"
     >
+      <ReusableLoginAvatar />
       <div class="max-w-4xl mx-auto grid items-center">
         <h1
           class="pokemon-title text-3xl font-bold text-center text-gray-900 mb-8"
@@ -91,7 +92,7 @@
                   }"
                   class="block font-bold text-black text-left whitespace-nowrap self-end text-shadow-md/40 text-shadow-white"
                 >
-                  {{ pokemonName || 'Name' }}
+                  {{ pokemonName || "Name" }}
                 </span>
               </div>
 
@@ -101,7 +102,7 @@
                 class="flex absolute top-[1.2rem] text-black right-13 text-shadow-md/40 text-shadow-white z-10"
               >
                 <div class="font-bold self-end text-[10px]">hp</div>
-                <div class="font-bold h-[25px] text-lg">{{ hp || '0' }}</div>
+                <div class="font-bold h-[25px] text-lg">{{ hp || "0" }}</div>
               </div>
               <!-- Attack -->
               <div
@@ -446,8 +447,8 @@
 </template>
 
 <script setup>
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { useCardAssets } from '~/composables/card-assets';
+import { ChevronLeft, ChevronRight } from "lucide-vue-next";
+import { useCardAssets } from "~/composables/card-assets";
 
 // const { handleLogin } = useLogin();
 
@@ -509,7 +510,7 @@ const limitInput = () => {
 export default {
   methods: {
     resetImageUploader() {
-      this.$refs.imageUploader.value = '';
+      this.$refs.imageUploader.value = "";
     },
   },
 };
