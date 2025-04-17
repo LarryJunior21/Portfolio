@@ -1,5 +1,7 @@
 export const useLogin = () => {
   const { login } = useAuthStore();
+  const { showToast } = useToast();
+
   const email = ref("");
   const password = ref("");
   const success = ref(false); // store a boolean, not a Promise
@@ -9,16 +11,22 @@ export const useLogin = () => {
   const closeButton = ref<HTMLElement | null>(null);
 
   const handleLogin = async () => {
+    isLoading.value = true;
     try {
       const result = await login(email.value, password.value);
       success.value = result;
+      isLoading.value = false;
     } catch (err: any) {
-      emitActionError(err.message || "Login failed");
+      emitActionError("Server error, please try again later", "error");
+      isLoading.value = false;
     }
   };
 
-  const emitActionError = (error: string) => {
-    alert(error);
+  const emitActionError = (
+    message: string,
+    type: "info" | "success" | "error"
+  ) => {
+    showToast(message, type);
   };
 
   const closeModal = () => {
@@ -26,7 +34,12 @@ export const useLogin = () => {
   };
 
   watch(success, (newValue) => {
-    if (newValue) closeModal();
+    if (newValue) {
+      closeModal();
+      emitActionError("You are logged in :)", "success");
+    } else {
+      emitActionError("Login failed, please check email/password", "error");
+    }
   });
 
   return {

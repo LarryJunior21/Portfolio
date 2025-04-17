@@ -32,9 +32,6 @@ export const useAuthStore = defineStore("auth", {
           this.loggedIn = true;
           return true;
         } else {
-          const { emitActionError } = useLogin();
-          emitActionError("E-mail or password incorrect!");
-
           this.loggedIn = false;
           return false;
         }
