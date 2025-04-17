@@ -5,6 +5,7 @@
     >
       <form method="dialog">
         <button
+          ref="closeButton"
           class="btn btn-sm btn-square btn-ghost absolute right-2 top-2 shadow-none border-transparent bg-white/90 dark:bg-gray-800/99 hover:border-gray-100/90 hover:bg-white/90 hover:dark:bg-gray-800/99 focus:outline-none focus-visible:outline-none focus-visible:outline-0"
         >
           ✕
@@ -20,21 +21,40 @@
           class="pointer-events-none hidden"
         />
         <div class="swap-off">
-          <fieldset
-            class="fieldset w-xs border border-emerald-600 p-4 rounded-box bg-white/90 dark:bg-gray-800/99"
-            :class="{ hidden: isLogin }"
-          >
-            <legend class="fieldset-legend">Login</legend>
+          <form @submit.prevent="handleLogin">
+            <fieldset
+              class="fieldset w-xs border border-emerald-600 p-4 rounded-box bg-white/90 dark:bg-gray-800/99"
+              :class="{ hidden: isLogin }"
+            >
+              <legend class="fieldset-legend">Login</legend>
 
-            <label class="fieldset-label">Email</label>
-            <input type="email" class="input" placeholder="Email" />
+              <label class="fieldset-label">Email</label>
+              <input
+                v-model="email"
+                type="email"
+                class="input"
+                placeholder="Email"
+                required
+              />
 
-            <label class="fieldset-label">Password</label>
-            <input type="password" class="input" placeholder="Password" />
+              <label class="fieldset-label">Password</label>
+              <input
+                v-model="password"
+                type="password"
+                class="input"
+                placeholder="Password"
+                required
+              />
 
-            <button class="btn btn-neutral mt-4">Login</button>
-          </fieldset>
-
+              <button type="submit" class="btn btn-neutral mt-4">
+                <span
+                  v-if="isLoading"
+                  class="loading loading-infinity loading-md"
+                ></span>
+                <span v-else>Login</span>
+              </button>
+            </fieldset>
+          </form>
           <div class="text-sm mt-6 text-center">
             Don't have an account?
             <span
@@ -63,7 +83,13 @@
             <label class="fieldset-label">Confirm password</label>
             <input type="password" class="input" placeholder="Password" />
 
-            <button class="btn btn-neutral mt-4">Create Account</button>
+            <button class="btn btn-neutral mt-4">
+              <span
+                v-if="isLoading"
+                class="loading loading-infinity loading-md"
+              ></span>
+              <span v-else>Create Account</span>
+            </button>
           </fieldset>
 
           <div class="text-sm mt-6 text-center">
@@ -81,12 +107,14 @@
 </template>
 
 <script setup>
+const { handleLogin, email, password, isLoading, closeButton } = useLogin();
+
 const isLogin = ref(false);
 
 const toggleSwap = () => {
-  const checkbox = document.getElementById('box-swap');
+  const checkbox = document.getElementById("box-swap");
   checkbox.checked = !checkbox.checked;
-  checkbox.dispatchEvent(new Event('change'));
+  checkbox.dispatchEvent(new Event("change"));
   isLogin.value = !isLogin.value;
 };
 
@@ -95,10 +123,10 @@ const preventSwapClick = (e) => {
 
   // If the click came from an actual input or button, let it through
   const isFormControl =
-    target.closest('input') ||
-    target.closest('button') ||
-    target.closest('select') ||
-    target.closest('textarea');
+    target.closest("input") ||
+    target.closest("button") ||
+    target.closest("select") ||
+    target.closest("textarea");
 
   if (!isFormControl) {
     // Prevent the label click from toggling the checkbox

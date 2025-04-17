@@ -1,23 +1,24 @@
-import { defineStore } from 'pinia';
-import type { Session, User } from '~/types/general-types';
+import { defineStore } from "pinia";
+import type { Session, User } from "~/types/general-types";
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null as null | any,
     token: null as null | string,
     refreshToken: null as null | string,
     expiresAt: null as null | number,
+    loggedIn: false,
   }),
   actions: {
-    async login(email: string, password: string) {
+    async login(email: string, password: string): Promise<boolean> {
       try {
         const response = await $fetch<{
           error: boolean;
           message: string;
           session?: Session;
           user?: User;
-        }>('/api/login', {
-          method: 'POST',
+        }>("/api/login", {
+          method: "POST",
           body: { email, password },
         });
 
@@ -27,11 +28,18 @@ export const useAuthStore = defineStore('auth', {
           this.refreshToken = response.session.refresh_token;
           this.user = response.user;
           this.expiresAt = response.session.expires_at;
+
+          this.loggedIn = true;
+          return true;
         } else {
-          throw new Error('Login failed: No session or user data received');
+          const { emitActionError } = useLogin();
+          emitActionError("E-mail or password incorrect!");
+
+          this.loggedIn = false;
+          return false;
         }
       } catch (err: any) {
-        throw new Error(err?.data?.error || 'Login failed');
+        throw new Error(err?.data?.error || "Login failed");
       }
     },
 
@@ -41,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
       this.refreshToken = null;
       this.expiresAt = null;
 
-      const authCookie = useCookie('auth');
+      const authCookie = useCookie("auth");
       authCookie.value = null;
     },
   },
