@@ -23,7 +23,7 @@ export interface User {
 
 export const Routes = {
   PokePage: '/poke-gen',
-  Home: '/#home',
+  Home: '/',
   About: '/#about',
   Projects: '/#projects',
   Contact: '/#contact',
