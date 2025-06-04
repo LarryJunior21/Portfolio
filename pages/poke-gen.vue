@@ -54,7 +54,12 @@
                 <div v-show="false">{{ isImageLoaded = isLoaded }}</div>
 
                 <!-- Show the actual image when loaded -->
-                <img v-if="isImageLoaded" v-bind="imgAttrs" :src="src" />
+                <img
+                  v-if="isImageLoaded"
+                  v-bind="imgAttrs"
+                  :src="src"
+                  class="shadow-xl drop-shadow-xl rounded-2xl"
+                />
 
                 <!-- Show a placeholder while loading -->
                 <img

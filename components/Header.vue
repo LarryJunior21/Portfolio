@@ -4,7 +4,7 @@
   >
     <!-- Add horizontal padding if is desktop view -->
     <div class="pl-4 lg:px-4 mx-5 flex justify-between items-center">
-      <a href="/#home">
+      <a href="javascript:void(0)" @click.prevent="goHomeOrScrollTop">
         <h1
           class="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-200 bg-transparent h-full text-shadow mr-4"
         >
@@ -52,6 +52,18 @@ const {
   toggleMobileMenu,
   afterLeave,
 } = useNavigation();
+
+const router = useRouter();
+const route = useRoute();
+
+const goHomeOrScrollTop = () => {
+  if (route.path === '/') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else {
+    router.push('/');
+  }
+};
 </script>
 
 <style scoped src="~/assets/css/hamburger-menu-rotation.css" />

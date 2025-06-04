@@ -20,3 +20,11 @@ export interface User {
   role: string;
   created_at: string;
 }
+
+export const Routes = {
+  PokePage: '/poke-gen',
+  Home: '/',
+  About: '/#about',
+  Projects: '/#projects',
+  Contact: '/#contact',
+};

@@ -1,79 +1,129 @@
 <template>
-  <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-      <div class="font-bold text-center text-gray-900 dark:text-white mb-12">
-        <h2 class="text-3xl">Get In Touch</h2>
-        <h4>* Please check your spam folder if no e-mail is received</h4>
+  <section id="contact" class="py-20 px-4 bg-white dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto">
+      <div class="scroll-animate text-center mb-16">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
+        >
+          Let's Work Together
+        </h2>
+        <div
+          class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"
+        ></div>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          Have a project in mind? Let's discuss how we can bring your ideas to
+          life.
+        </p>
       </div>
-      <div class="max-w-2xl mx-auto">
-        <form class="space-y-6" @submit.prevent="submitForm">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label
-                for="name"
-                class="block text-gray-700 dark:text-gray-300 mb-2"
-                >Name</label
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="scroll-animate" style="animation-delay: 0.2s">
+          <div class="space-y-6">
+            <div class="contact-item">
+              <MailIcon class="h-6 w-6 text-blue-600" />
+              <div>
+                <h3 class="font-semibold text-gray-900 dark:text-white">
+                  Email
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  larryjunior21@hotmail.com
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <MapPinIcon class="h-6 w-6 text-purple-600" />
+              <div>
+                <h3 class="font-semibold text-gray-900 dark:text-white">
+                  Location
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  Melbourne, VIC - Australia
+                </p>
+              </div>
+            </div>
+
+            <div class="flex space-x-4 pt-6">
+              <a href="https://github.com/LarryJunior21" class="social-link">
+                <GithubIcon class="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/larryjunior2121/"
+                class="social-link"
               >
+                <LinkedinIcon class="h-6 w-6" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-animate" style="animation-delay: 0.4s">
+          <form class="space-y-6 contact-form" @submit.prevent="submitForm">
+            <div class="form-group">
               <input
                 id="name"
                 v-model="contactForm.name"
                 type="text"
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
+                placeholder="Your Name"
+                class="form-input"
                 required
               />
             </div>
-            <div>
-              <label
-                for="email"
-                class="block text-gray-700 dark:text-gray-300 mb-2"
-                >Email</label
-              >
+
+            <div class="form-group">
               <input
                 id="email"
                 v-model="contactForm.email"
-                type="email"
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
+                type="text"
+                placeholder="Your Email"
+                class="form-input"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                @input="emailDirty = true"
+              />
+            </div>
+            <p
+              v-if="emailDirty && !isValidEmail"
+              class="text-red-500 text-sm mt-[-1.5em]"
+            >
+              Please enter a valid email address.
+            </p>
+
+            <div class="form-group">
+              <input
+                id="subject"
+                v-model="contactForm.subject"
+                type="text"
+                placeholder="Subject"
+                class="form-input"
                 required
               />
             </div>
-          </div>
-          <div>
-            <label
-              for="subject"
-              class="block text-gray-700 dark:text-gray-300 mb-2"
-              >Subject</label
-            >
-            <input
-              id="subject"
-              v-model="contactForm.subject"
-              type="text"
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
-              required
-            />
-          </div>
-          <div>
-            <label
-              for="message"
-              class="block text-gray-700 dark:text-gray-300 mb-2"
-              >Message</label
-            >
-            <textarea
-              id="message"
-              v-model="contactForm.message"
-              rows="5"
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:bg-gray-700 dark:text-white"
-              required
-            />
-          </div>
-          <div>
+
+            <div class="form-group">
+              <textarea
+                id="message"
+                v-model="contactForm.message"
+                placeholder="Your Message"
+                rows="5"
+                class="form-input"
+                required
+              ></textarea>
+            </div>
+
             <button
+              :disabled="!isValidEmail"
               type="submit"
-              class="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition shadow-lg hover:shadow-xl"
+              class="submit-btn group cursor-pointer"
+              :style="!isValidEmail ? 'background: gray;' : ''"
             >
-              Send Message
+              <span>Send Message</span>
+              <SendIcon
+                class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform"
+              />
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -83,6 +133,8 @@
 <script setup>
 import { ref } from 'vue';
 import emailjs from '@emailjs/browser';
+
+const emailDirty = ref(false);
 
 const config = useRuntimeConfig();
 
@@ -103,7 +155,17 @@ const contactForm = ref({
   message: '',
 });
 
+const isValidEmail = computed(() => {
+  if (!emailDirty.value) return true; // skip validation if not dirty
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return regex.test(contactForm.value.email);
+});
+
 const submitForm = () => {
+  if (!isValidEmail.value) {
+    return;
+  }
+
   try {
     emailjs.send(serviceId, templateId, contactForm.value, {
       publicKey,
@@ -114,6 +176,7 @@ const submitForm = () => {
     message.value = 'Please try again later.' + err;
   }
 
+  emailDirty.value = false;
   // Reset form
   contactForm.value = {
     name: '',
@@ -123,3 +186,35 @@ const submitForm = () => {
   };
 };
 </script>
+
+<style scoped>
+@reference "tailwindcss";
+.contact-item {
+  @apply flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-all duration-300 hover:shadow-md;
+}
+
+.social-link {
+  @apply bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 p-3 rounded-full transition-all duration-300 hover:bg-blue-600 hover:text-white hover:scale-110;
+}
+
+.contact-form {
+  @apply bg-gray-50 dark:bg-gray-700 p-8 rounded-xl;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-input {
+  @apply w-full px-4 py-3 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-300;
+}
+
+.form-input:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn {
+  @apply w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center;
+}
+</style>

@@ -1,6 +1,5 @@
-import { useState, useRoute } from 'nuxt/app';
-import { ref } from 'vue';
-import type { NavNode } from '~/types/general-types';
+import { Routes } from '@/types/general-types.d';
+import type { NavNode } from '@/types/general-types';
 
 export const useNavigation = () => {
   // Header title
@@ -8,15 +7,15 @@ export const useNavigation = () => {
 
   // Navigation Options
   const navigation = ref<NavNode[]>([
-    { name: 'Home', type: 'link', href: '/#home' },
-    { name: 'About', type: 'link', href: '/#about' },
-    { name: 'Projects', type: 'link', href: '/#projects' },
-    { name: 'Contact', type: 'link', href: '/#contact' },
+    { name: 'Home', type: 'link', href: Routes.Home },
+    { name: 'About', type: 'link', href: Routes.About },
+    { name: 'Projects', type: 'link', href: Routes.Projects },
+    { name: 'Contact', type: 'link', href: Routes.Contact },
     {
       name: 'Examples',
       type: 'dropdown',
       isOpen: false,
-      items: [{ name: 'PokeGen', href: '/poke-gen' }],
+      items: [{ name: 'PokeGen', href: Routes.PokePage }],
     },
   ]);
 
@@ -24,6 +23,7 @@ export const useNavigation = () => {
   const mobileMenuOpen = useState('mobileMenuOpen', () => false); // Default value is false
   const dropdownOpen = useState('dropdownOpen', () => false); // For dropdown state
   const route = useRoute();
+  const router = useRouter();
 
   const toggleDropdown = (item: NavNode) => {
     item.isOpen = dropdownOpen.value = !dropdownOpen.value;
@@ -51,7 +51,24 @@ export const useNavigation = () => {
 
   const unToggleDropdownAfterClick = (href: string = '') => {
     dropdownOpen.value = false;
-    if (href !== '') location.href = href;
+    if (href !== '') {
+      switch (href) {
+        case '/':
+          if (route.path === '/') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname
+            );
+          } else {
+            router.push('/');
+          }
+          break;
+        default:
+          router.push(href);
+      }
+    }
   };
 
   // Is simple logic but it's more to remove logic from html and make it reusable between components

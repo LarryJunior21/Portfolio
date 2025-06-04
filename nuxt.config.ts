@@ -15,8 +15,15 @@ export default defineNuxtConfig({
     },
   },
 
+  build: {
+    transpile: ['@iconify/vue'],
+  },
+
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['@iconify/vue'],
+    },
   },
 
   typescript: {
