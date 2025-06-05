@@ -105,75 +105,12 @@
 - 🧶 Yarn package manager
 - 🔧 Git
 
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/LarryJunior21/Portfolio.git
-   cd Portfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   yarn install
-   ```
-
-3. **Start development server**
-   ```bash
-   yarn dev
-   ```
-
-4. **Open your browser**
-   ```
-   http://localhost:3000
-   ```
-
-### 🏗️ Build for Production
-
-```bash
-# Generate static files
-yarn generate
-
-# Build for production
-yarn build
-
-# Preview production build
-yarn preview
-```
-
-## 🎨 Customization
-
-### 🖼️ **Adding Your Photos**
-1. Add your images to \`assets/images/\`
-2. Update the image imports in \`components/main-page/About.vue\`
-3. Adjust the carousel settings if needed
-
-### 🎯 **Updating Skills**
-1. Edit the \`skills\` object in \`About.vue\`
-2. Adjust \`skillLevels\` to reflect your proficiency
-3. Add new categories as needed
-
-### 🎨 **Changing Colors**
-1. Update Tailwind config in \`tailwind.config.ts\`
-2. Modify gradient colors in component styles
-3. Adjust theme colors for consistency
-
 ## 📈 Performance
 
 - ⚡ **Lighthouse Score**: 95+ across all metrics
 - 🚀 **First Contentful Paint**: < 1.5s
 - 📱 **Mobile Optimized**: Perfect responsive design
 - 🔍 **SEO Ready**: Structured data and meta tags
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. 🍴 Fork the project
-2. 🌿 Create your feature branch (\`git checkout -b feature/AmazingFeature\`)
-3. 💾 Commit your changes (\`git commit -m 'Add some AmazingFeature'\`)
-4. 📤 Push to the branch (\`git push origin feature/AmazingFeature\`)
-5. 🔄 Open a Pull Request
 
 ## 📄 License
 
@@ -184,7 +121,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🎨 **Design Inspiration**: Modern portfolio trends
 - 🔧 **Icons**: Lucide React & Iconify
 - 🎭 **Animations**: Custom CSS animations
-- 📚 **Documentation**: Nuxt.js community
 
 ---
 
