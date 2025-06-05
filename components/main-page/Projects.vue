@@ -28,7 +28,8 @@
               />
             </div>
             <div v-else>
-              <img
+              <NuxtImg
+                loading="lazy"
                 :src="project.image"
                 class="w-full rounded-tr-xl rounded-t-xl h-48 object-cover"
               />
@@ -40,10 +41,16 @@
                   v-if="project.demo"
                   :href="project.demo"
                   class="project-link"
+                  target="_blank"
                 >
                   <ExternalLinkIcon class="h-5 w-5" />
                 </a>
-                <a :href="project.github" class="project-link">
+                <a
+                  v-if="project.github"
+                  :href="project.github"
+                  class="project-link"
+                  target="_blank"
+                >
                   <GithubIcon class="h-5 w-5" />
                 </a>
               </div>
@@ -54,9 +61,10 @@
             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
               {{ project.title }}
             </h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">
-              {{ project.description }}
-            </p>
+            <p
+              class="text-gray-600 dark:text-gray-300 mb-4"
+              v-html="project.description"
+            ></p>
             <div class="flex flex-wrap gap-2">
               <span
                 v-for="tech in project.technologies"
@@ -74,52 +82,130 @@
 </template>
 
 <script setup>
-import pokePreview from '~/assets/images/poke_preview_image.png';
+import { IMAGES } from "~/public/constants/images";
+
+const { loadImage } = useImages();
+
+const pokeImg = await loadImage(IMAGES.poke_preview);
+const samsungImg = await loadImage(IMAGES.samsung_preview);
+const tuvaluImg = await loadImage(IMAGES.tuvalu_preview);
+const brickImg = await loadImage(IMAGES.brick_preview);
+const compreImg = await loadImage(IMAGES.compre_preview);
+const portfolioImg = await loadImage(IMAGES.portfolio_preview);
+const pacificImg = await loadImage(IMAGES.pacific_preview);
 
 const projects = [
   {
-    title: 'Pokemon card generator',
-    description: 'A page made using Nuxt.js using forms, images, UI and more!',
-    image: pokePreview,
-    imageType: 'path',
-    technologies: ['Nuxt.js', 'Vue.js', 'Tailwind'],
-    demo: '/poke-gen',
+    title: "Pokemon card generator",
+    description: "A page made using Nuxt.js using forms, images, UI and more!",
+    image: pokeImg,
+    imageType: "path",
+    technologies: ["Nuxt.js", "Vue.js", "Tailwind"],
+    demo: "/poke-gen",
     github:
-      'https://github.com/LarryJunior21/Portfolio/blob/master/pages/poke-gen.vue',
+      "https://github.com/LarryJunior21/Portfolio/blob/master/pages/poke-gen.vue",
   },
   {
-    title: 'This Portfolio!',
+    title: "Samsung Commerce Experience",
     description:
-      'I plan to implement every new idea here and try to integrate more technologies overtime',
-    image: 'GithubIcon',
-    imageType: 'component',
+      "I worked on this project as a front end developer, being responsible for the <i>Samsung Care+</i>, <i>Extended Warranty</i> and key lead on <i>Trade-In</i> features on <b>Card and Checkout</b> pages. If you have a samsung store in your country we probably already did it :)",
+    image: samsungImg,
+    imageType: "path",
     technologies: [
-      'Nuxt.js',
-      'Vue.js',
-      'JavaScript',
-      'TypeScript',
-      'Tailwind',
-      'DaisyUI',
-      '@emailjs',
-      '@nuxt/image',
-      '@html2canvas',
+      "Angular",
+      "TypeScript",
+      "RxJs",
+      "SASS",
+      "SAP | Spartacus",
+      "Jira",
+      "Confluence",
+      "Github",
     ],
-    demo: '/',
-    github: 'https://github.com/LarryJunior21/Portfolio',
+    demo: "https://shop.samsung.com/jp/cart",
   },
   {
-    title: 'Card game | Truco',
-    description: 'A collaborative task management app with real-time updates.',
-    image: 'GithubIcon',
-    imageType: 'component',
+    title: "Brick for a Cure",
+    description:
+      "We used a platform called Raisely, that uses React as a base, to implement a donation campaign in the fight against child cancer.",
+    image: brickImg,
+    imageType: "path",
+    technologies: ["React.js", "Raisely", "JavaScript", "SASS", "CSS"],
+    demo: "https://brickforacure.com.au/",
+  },
+  {
+    title: "Tuvalu | The first digital country",
+    description:
+      "Being the lead developer in this project was a great learning experience, were I renovated the website for a whole country! (<i>Even if it's small it counts ok </i>😄)",
+    image: tuvaluImg,
+    imageType: "path",
+    technologies: ["Next.js", "TypeScript", "SASS", "Tailwind"],
+    demo: "https://tuvalu.tv/",
+  },
+  {
+    title: "Pacific National Platform",
+    description:
+      "Front-end developer on the new employee platform for the Pacific National team, implemented core features such as Redux and Microfrontends for the monorepo",
+    image: pacificImg,
+    imageType: "path",
     technologies: [
-      'React Native',
-      'JavaScript',
-      'TypeScript',
-      'Node.js',
-      'Express',
+      "Next.js",
+      "TypeScript",
+      "SASS",
+      "Redux",
+      "Microfrontends",
+      "Storybook",
     ],
-    github: 'https://github.com/LarryJunior21/trucoApp',
+  },
+  {
+    title: "CompreAhora E-Commerce",
+    description:
+      "I worked as a full-stack developer to complete the UI design then support the Go-Live on backend, using React on the front-end then later Magento 2 (Adobe E-Commerce)",
+    image: compreImg,
+    imageType: "path",
+    technologies: [
+      "React.js",
+      "PWA",
+      "JavaScript",
+      "CSS",
+      "Docker",
+      "Docker Compose",
+      "Adobe Commerce",
+    ],
+    demo: "https://www.compreahora.com.ar/",
+  },
+  {
+    title: "This Portfolio!",
+    description:
+      "I plan to implement every new idea here and try to integrate more technologies overtime",
+    image: portfolioImg,
+    imageType: "path",
+    technologies: [
+      "Nuxt.js",
+      "Vue.js",
+      "JavaScript",
+      "TypeScript",
+      "Tailwind",
+      "DaisyUI",
+      "@emailjs",
+      "@nuxt/image",
+      "@html2canvas",
+    ],
+    demo: "/",
+    github: "https://github.com/LarryJunior21/Portfolio",
+  },
+  {
+    title: "Card game | Truco",
+    description: "A collaborative task management app with real-time updates.",
+    image: "GithubIcon",
+    imageType: "component",
+    technologies: [
+      "React Native",
+      "JavaScript",
+      "TypeScript",
+      "Node.js",
+      "Express",
+    ],
+    github: "https://github.com/LarryJunior21/trucoApp",
   },
 ];
 </script>
