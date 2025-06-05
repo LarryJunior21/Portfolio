@@ -16,7 +16,10 @@
         <div
           v-for="(project, index) in projects"
           :key="project.id"
-          class="scroll-animate project-card"
+          class="scroll-animate project-card project-disclaimer"
+          :class="{
+            'project-card--active': project?.demo || project?.github,
+          }"
           :style="{ 'animation-delay': `${index * 0.2}s` }"
         >
           <div class="project-image-container">
@@ -35,7 +38,10 @@
               />
             </div>
 
-            <div class="project-overlay">
+            <div
+              class="project-overlay"
+              :class="{ 'overlay-visible': visibleOverlays[index] }"
+            >
               <div class="project-links">
                 <a
                   v-if="project.demo"
@@ -82,7 +88,10 @@
 </template>
 
 <script setup>
+import { reactive } from "vue";
 import { IMAGES } from "~/public/constants/images";
+
+const visibleOverlays = reactive({});
 
 const projects = [
   {
@@ -232,12 +241,47 @@ const projects = [
   transition: opacity 0.3s ease;
 }
 
+.project-overlay.overlay-visible {
+  opacity: 1;
+}
+
+.project-card:not(.project-card--active):hover .project-overlay {
+  opacity: 0;
+}
+
 .project-card:hover .project-overlay {
   opacity: 1;
 }
 
 .project-card:hover .project-image {
   transform: scale(1.1);
+}
+
+.project-disclaimer::after {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10;
+}
+
+.project-card:not(.project-card--active)::after {
+  content: "🚫 No links available";
+}
+
+.project-card--active::after {
+  content: "🖱️ Hover to view links";
+}
+
+/* Mobile/touch behavior */
+@media (hover: none) and (pointer: coarse) {
+  .project-card--active::after {
+    content: "👆 Tap to view links";
+  }
 }
 
 .project-links {
