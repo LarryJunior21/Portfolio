@@ -36,7 +36,7 @@ export default defineNuxtConfig({
           content:
             "Full Stack Developer specializing in modern web technologies. Explore my projects, skills, and get in touch for collaboration opportunities.",
         },
-        { property: "og:image", content: "/og-image.png" }, // You'll need to add this image
+        { property: "og:image", content: "/og-image.png" },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         {
