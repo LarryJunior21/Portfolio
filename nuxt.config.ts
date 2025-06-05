@@ -1,32 +1,29 @@
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
 
   app: {
     head: {
-      title: 'Larry Portfolio',
+      title: "Larry Portfolio",
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { id: 'description', name: 'description', content: 'Larry Portfolio' },
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { id: "description", name: "description", content: "Larry Portfolio" },
       ],
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      ],
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     },
   },
 
   build: {
-    transpile: ['@iconify/vue'],
+    transpile: ["@iconify/vue"],
   },
 
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
-      include: ['@iconify/vue'],
+      include: ["@iconify/vue"],
     },
   },
 
@@ -43,13 +40,13 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxt/image',
-    '@nuxt/eslint',
-    '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt',
-    '@nuxtjs/supabase',
+    "@nuxt/image",
+    "@nuxt/eslint",
+    "@pinia/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/supabase",
   ],
-  compatibilityDate: '2025-04-10',
+  compatibilityDate: "2025-04-10",
   supabase: {
     redirect: false,
   },
