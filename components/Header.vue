@@ -57,11 +57,11 @@ const router = useRouter();
 const route = useRoute();
 
 const goHomeOrScrollTop = () => {
-  if (route.path === '/') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (route.path === "/") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     window.history.replaceState({}, document.title, window.location.pathname);
   } else {
-    router.push('/');
+    router.push("/");
   }
 };
 </script>

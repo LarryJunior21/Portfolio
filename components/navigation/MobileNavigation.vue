@@ -3,7 +3,7 @@
     <div
       v-if="mobileMenuOpen"
       ref="menuDrawer"
-      class="md:hidden fixed top-[100%] right-0 w-[180px] h-auto bg-white/80 dark:bg-gray-800/90 backdrop-blur-md rounded-bl-2xl shadow-sm inset-shadow-sm"
+      class="md:hidden fixed top-[100%] right-0 w-[180px] h-auto bg-white dark:bg-gray-800 backdrop-blur-lg rounded-bl-2xl shadow-sm inset-shadow-sm mt-[-1px]"
     >
       <div class="container mx-auto px-4 py-2">
         <div v-for="item in navigation" :key="item.name" class="relative">

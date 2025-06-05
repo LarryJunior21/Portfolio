@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="relative z-10 text-center max-w-4xl mx-auto w-full">
+    <div class="relative z-9 text-center max-w-4xl mx-auto w-full">
       <!-- Animated profile image with circular animation -->
       <div class="mb-6 md:mb-8 scroll-animate">
         <div class="relative inline-block">
