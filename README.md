@@ -36,7 +36,7 @@
 
 ### Frontend
 ![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vue.js&logoColor=4FC08D) 
-![Nuxt.js](https://img.shields.io/badge/Nuxt.js-002E3B?style=flat&logo=nuxtdotjs&logoColor=#00DC82)
+![Nuxt.js](https://img.shields.io/badge/Nuxt.js-002E3B?style=flat&logo=nuxt&logoColor=#00DC82)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 
