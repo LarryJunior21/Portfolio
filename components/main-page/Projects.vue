@@ -84,21 +84,11 @@
 <script setup>
 import { IMAGES } from "~/public/constants/images";
 
-const { loadImage } = useImages();
-
-const pokeImg = await loadImage(IMAGES.poke_preview);
-const samsungImg = await loadImage(IMAGES.samsung_preview);
-const tuvaluImg = await loadImage(IMAGES.tuvalu_preview);
-const brickImg = await loadImage(IMAGES.brick_preview);
-const compreImg = await loadImage(IMAGES.compre_preview);
-const portfolioImg = await loadImage(IMAGES.portfolio_preview);
-const pacificImg = await loadImage(IMAGES.pacific_preview);
-
 const projects = [
   {
     title: "Pokemon card generator",
     description: "A page made using Nuxt.js using forms, images, UI and more!",
-    image: pokeImg,
+    image: IMAGES.poke_preview,
     imageType: "path",
     technologies: ["Nuxt.js", "Vue.js", "Tailwind"],
     demo: "/poke-gen",
@@ -109,7 +99,7 @@ const projects = [
     title: "Samsung Commerce Experience",
     description:
       "I worked on this project as a front end developer, being responsible for the <i>Samsung Care+</i>, <i>Extended Warranty</i> and key lead on <i>Trade-In</i> features on <b>Card and Checkout</b> pages. If you have a samsung store in your country we probably already did it :)",
-    image: samsungImg,
+    image: IMAGES.samsung_preview,
     imageType: "path",
     technologies: [
       "Angular",
@@ -127,7 +117,7 @@ const projects = [
     title: "Brick for a Cure",
     description:
       "We used a platform called Raisely, that uses React as a base, to implement a donation campaign in the fight against child cancer.",
-    image: brickImg,
+    image: IMAGES.brick_preview,
     imageType: "path",
     technologies: ["React.js", "Raisely", "JavaScript", "SASS", "CSS"],
     demo: "https://brickforacure.com.au/",
@@ -136,7 +126,7 @@ const projects = [
     title: "Tuvalu | The first digital country",
     description:
       "Being the lead developer in this project was a great learning experience, were I renovated the website for a whole country! (<i>Even if it's small it counts ok </i>😄)",
-    image: tuvaluImg,
+    image: IMAGES.tuvalu_preview,
     imageType: "path",
     technologies: ["Next.js", "TypeScript", "SASS", "Tailwind"],
     demo: "https://tuvalu.tv/",
@@ -145,7 +135,7 @@ const projects = [
     title: "Pacific National Platform",
     description:
       "Front-end developer on the new employee platform for the Pacific National team, implemented core features such as Redux and Microfrontends for the monorepo",
-    image: pacificImg,
+    image: IMAGES.pacific_preview,
     imageType: "path",
     technologies: [
       "Next.js",
@@ -160,7 +150,7 @@ const projects = [
     title: "CompreAhora E-Commerce",
     description:
       "I worked as a full-stack developer to complete the UI design then support the Go-Live on backend, using React on the front-end then later Magento 2 (Adobe E-Commerce)",
-    image: compreImg,
+    image: IMAGES.compre_preview,
     imageType: "path",
     technologies: [
       "React.js",
@@ -177,7 +167,7 @@ const projects = [
     title: "This Portfolio!",
     description:
       "I plan to implement every new idea here and try to integrate more technologies overtime",
-    image: portfolioImg,
+    image: IMAGES.portfolio_preview,
     imageType: "path",
     technologies: [
       "Nuxt.js",
