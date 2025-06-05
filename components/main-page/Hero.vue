@@ -31,7 +31,7 @@
       <!-- Animated text content -->
       <div class="scroll-animate px-2" style="animation-delay: 0.2s">
         <h1
-          class="text-xl xs:text-[28px] sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 leading-tight w-fit justify-self-center"
+          class="text-xl xs:text-[28px] sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 leading-tight w-fit justify-self-center inline-flex"
         >
           <span class="typing-animation">Hi, I'm Larry Junior</span>
         </h1>
@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import { ArrowDownIcon, MailIcon } from "lucide-vue-next";
+import { ArrowDownIcon, MailIcon } from 'lucide-vue-next';
 </script>
 
 <style scoped>

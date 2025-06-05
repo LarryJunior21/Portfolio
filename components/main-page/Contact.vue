@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <div class="flex space-x-4 pt-6 justify-self-center">
+            <div class="flex space-x-4 pt-6 justify-center">
               <a href="https://github.com/LarryJunior21" class="social-link">
                 <GithubIcon class="h-6 w-6" />
               </a>
@@ -130,8 +130,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import emailjs from "@emailjs/browser";
+import { ref } from 'vue';
+import emailjs from '@emailjs/browser';
 
 const emailDirty = ref(false);
 
@@ -141,17 +141,17 @@ const publicKey = config.public.EMAILJS_PUBLIC_KEY;
 const serviceId = config.public.EMAILJS_SERVICE_ID;
 const templateId = config.public.EMAILJS_TEMPLATE_ID;
 
-const title = ref("Email sent");
+const title = ref('Email sent');
 const message = ref(
   "Thank you for your e-mail! I'll do my best to reply as soon as possible!"
 );
 
 // Contact form
 const contactForm = ref({
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
 });
 
 const isValidEmail = computed(() => {
@@ -169,19 +169,19 @@ const submitForm = () => {
     emailjs.send(serviceId, templateId, contactForm.value, {
       publicKey,
     });
-    document.getElementById("reactiveModal").showModal();
+    document.getElementById('reactiveModal').showModal();
   } catch (err) {
-    title.value = "Email not sent";
-    message.value = "Please try again later." + err;
+    title.value = 'Email not sent';
+    message.value = 'Please try again later.' + err;
   }
 
   emailDirty.value = false;
   // Reset form
   contactForm.value = {
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   };
 };
 </script>
