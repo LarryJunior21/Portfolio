@@ -6,8 +6,12 @@
           <div
             class="flex flex-col items-center justify-center border-r-1 pr-2 mr-2"
           >
-            <p class="text-lg font-semibold">Larry Junior | Developer</p>
-            <p class="text-sm">
+            <p
+              class="text-[12px] xs:text-base sm:text-lg font-semibold text-nowrap"
+            >
+              Larry Junior | Developer
+            </p>
+            <p class="text-[10px] xs:text-sm sm:text-base">
               © {{ new Date().getFullYear() }} All Rights Reserved
             </p>
           </div>

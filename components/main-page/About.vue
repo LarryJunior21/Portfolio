@@ -12,15 +12,16 @@
         ></div>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="grid md:grid-cols-2 gap-20 items-center">
         <div class="scroll-animate" style="animation-delay: 0.2s">
-          <div class="relative">
+          <div class="relative text-center">
             <div class="about-image-container">
               <!-- Card Shuffle Container -->
               <div
                 class="card-shuffle-container"
                 @mouseenter="pauseShuffle"
                 @mouseleave="resumeShuffle"
+                @click="nextImage()"
               >
                 <div
                   v-for="(image, index) in images"
@@ -51,28 +52,26 @@
           </div>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-6 px-6 md:px-0">
           <div class="scroll-animate" style="animation-delay: 0.4s">
             <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Hi, I'm a passionate software developer with over 5 years of
-              experience building digital experiences that are both functional
-              and meaningful. I've worked across the stack using tools like
-              Angular, React.js, React Native, Next.js, Tailwind, Adobe
-              E-Commerce, and SQL. I care deeply about writing clean, organised
-              code and enjoy working closely with others to bring ideas to life.
-              Whether in large teams or smaller groups, I thrive in
-              collaborative environments where I can contribute to both the
-              technical and business sides of a project. I take pride in turning
-              complex challenges into simple, intuitive solutions that genuinely
-              help users.
+              Hello 👋, I have more than five years of experience as a software
+              developer, creating meaningful and useful digital experiences.
+              Tools like Angular, React.js, React Native, Next.js, Tailwind,
+              Adobe E-Commerce, and SQL have all been used in my work across the
+              stack. Writing clear, well-structured code is very important to
+              me, and I like collaborating closely with others to realise ideas.
+              I work best in collaborative settings where I can contribute to
+              both the technical and business aspects of a project, whether in
+              big or small teams.
             </p>
           </div>
 
           <div class="scroll-animate" style="animation-delay: 0.6s">
             <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              When I'm not coding, you'll find me exploring new technologies,
-              contributing to open source projects, or sharing my knowledge with
-              the developer community.
+              When I'm not coding, you'll find me travelling, gaming or playing
+              with my little dachshund. I like to cook sometimes, watch action
+              movies and walks on the beach.
             </p>
           </div>
 
@@ -151,33 +150,33 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import {
   CodeIcon,
   ServerIcon,
   SmartphoneIcon,
   CloudIcon,
-} from 'lucide-vue-next';
-import { Icon } from '@iconify/vue';
+} from "lucide-vue-next";
+import { Icon } from "@iconify/vue";
 
 // Import images using ES6 imports (recommended approach)
-import image1 from '~/assets/images/image_1.jpeg';
-import image2 from '~/assets/images/image_2.jpeg';
-import image3 from '~/assets/images/about_photo.png';
-import image4 from '~/assets/images/image_3.jpg';
-import image5 from '~/assets/images/image_4.jpg';
-import image6 from '~/assets/images/image_5.jpg';
-import image7 from '~/assets/images/image_6.jpg';
+import image1 from "~/assets/images/image_1.jpeg";
+import image2 from "~/assets/images/image_2.jpeg";
+import image3 from "~/assets/images/about_photo.png";
+import image4 from "~/assets/images/image_3.jpg";
+import image5 from "~/assets/images/image_4.jpg";
+import image6 from "~/assets/images/image_5.jpg";
+import image7 from "~/assets/images/image_6.jpg";
 
 // Image carousel data with properly imported images
 const images = [
-  { src: image6, alt: 'Larry - Photo 6' },
-  { src: image1, alt: 'Larry - Photo 1' },
-  { src: image2, alt: 'Larry - Photo 2' },
-  { src: image3, alt: 'Larry - Photo 3' },
-  { src: image4, alt: 'Larry - Photo 4' },
-  { src: image5, alt: 'Larry - Photo 5' },
-  { src: image7, alt: 'Larry - Photo 7' },
+  { src: image6, alt: "Larry - Photo 6" },
+  { src: image1, alt: "Larry - Photo 1" },
+  { src: image2, alt: "Larry - Photo 2" },
+  { src: image3, alt: "Larry - Photo 3" },
+  { src: image4, alt: "Larry - Photo 4" },
+  { src: image5, alt: "Larry - Photo 5" },
+  { src: image7, alt: "Larry - Photo 7" },
 ];
 
 const currentImageIndex = ref(0);
@@ -213,10 +212,10 @@ const startShuffle = () => {
 const getCardClass = (index) => {
   const diff =
     (index - currentImageIndex.value + images.length) % images.length;
-  if (diff === 0) return 'card-active';
-  if (diff === 1) return 'card-next';
-  if (diff === 2) return 'card-next-2';
-  return 'card-hidden';
+  if (diff === 0) return "card-active";
+  if (diff === 1) return "card-next";
+  if (diff === 2) return "card-next-2";
+  return "card-hidden";
 };
 
 const getCardStyle = (index) => {
@@ -245,52 +244,52 @@ onUnmounted(() => {
 // Skills data
 const skills = {
   frontend: [
-    { name: 'Angular', icon: 'logos:angular-icon' },
-    { name: 'Vue.js', icon: 'logos:vue' },
-    { name: 'Nuxt.js', icon: 'logos:nuxt-icon' },
-    { name: 'Next.js', icon: 'logos:nextjs-icon' },
-    { name: 'React', icon: 'logos:react' },
-    { name: 'JavaScript', icon: 'logos:javascript' },
-    { name: 'TypeScript', icon: 'logos:typescript-icon' },
-    { name: 'HTML/CSS', icon: 'vscode-icons:file-type-html' },
-    { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon' },
-    { name: 'Adobe Commerce', icon: 'simple-icons:adobe' },
+    { name: "Angular", icon: "logos:angular-icon" },
+    { name: "Vue.js", icon: "logos:vue" },
+    { name: "Nuxt.js", icon: "logos:nuxt-icon" },
+    { name: "Next.js", icon: "logos:nextjs-icon" },
+    { name: "React", icon: "logos:react" },
+    { name: "JavaScript", icon: "logos:javascript" },
+    { name: "TypeScript", icon: "logos:typescript-icon" },
+    { name: "HTML/CSS", icon: "vscode-icons:file-type-html" },
+    { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+    { name: "Adobe Commerce", icon: "simple-icons:adobe" },
   ],
   backend: [
-    { name: 'Node.js', icon: 'logos:nodejs-icon' },
-    { name: 'PHP', icon: 'logos:php' },
-    { name: 'RESTful APIs', icon: 'mdi:api' },
-    { name: 'GraphQL', icon: 'logos:graphql' },
-    { name: 'MongoDB', icon: 'logos:mongodb-icon' },
-    { name: 'PostgreSQL', icon: 'logos:postgresql' },
-    { name: 'Supabase', icon: 'logos:supabase-icon' },
+    { name: "Node.js", icon: "logos:nodejs-icon" },
+    { name: "PHP", icon: "logos:php" },
+    { name: "RESTful APIs", icon: "mdi:api" },
+    { name: "GraphQL", icon: "logos:graphql" },
+    { name: "MongoDB", icon: "logos:mongodb-icon" },
+    { name: "PostgreSQL", icon: "logos:postgresql" },
+    { name: "Supabase", icon: "logos:supabase-icon" },
   ],
-  mobile: [{ name: 'React Native', icon: 'logos:react' }],
+  mobile: [{ name: "React Native", icon: "logos:react" }],
   cloud: [
-    { name: 'Git', icon: 'logos:git-icon' },
-    { name: 'Docker', icon: 'logos:docker-icon' },
-    { name: 'Docker Compose', icon: 'logos:docker-icon' },
-    { name: 'Linux', icon: 'logos:linux-tux' },
+    { name: "Git", icon: "logos:git-icon" },
+    { name: "Docker", icon: "logos:docker-icon" },
+    { name: "Docker Compose", icon: "logos:docker-icon" },
+    { name: "Linux", icon: "logos:linux-tux" },
   ],
 };
 
 // Generate skill levels based on expertise
 const skillLevels = {
   // Frontend - Your strongest area
-  'Vue.js': 60,
-  'Nuxt.js': 65,
+  "Vue.js": 60,
+  "Nuxt.js": 65,
   JavaScript: 90,
-  'HTML/CSS': 100,
-  'Tailwind CSS': 90,
+  "HTML/CSS": 100,
+  "Tailwind CSS": 90,
   TypeScript: 85,
   React: 100,
-  'Next.js': 95,
+  "Next.js": 95,
   Angular: 87,
-  'Adobe Commerce': 95,
+  "Adobe Commerce": 95,
 
   // Backend
-  'Node.js': 75,
-  'RESTful APIs': 100,
+  "Node.js": 75,
+  "RESTful APIs": 100,
   PHP: 90,
   PostgreSQL: 85,
   Supabase: 70,
@@ -298,13 +297,13 @@ const skillLevels = {
   GraphQL: 98,
 
   // Mobile
-  'React Native': 90,
+  "React Native": 90,
 
   // Cloud/DevOps
   Git: 99,
   Linux: 95,
   Docker: 85,
-  'Docker Compose': 85,
+  "Docker Compose": 85,
 };
 
 const skillsWithLevels = computed(() => {
@@ -326,6 +325,10 @@ const formatCategoryName = (name) => {
 <style scoped>
 @reference "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 345px;
+}
+
 /* Card Shuffle Styles */
 .about-image-container {
   position: relative;
@@ -333,6 +336,8 @@ const formatCategoryName = (name) => {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+
+  @apply max-w-3xs xs:max-w-2xs sm:max-w-[340px] md:max-w-[280px] lg:max-w-[400px] xl:max-w-[450px];
 }
 
 .card-shuffle-container {
