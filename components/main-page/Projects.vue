@@ -21,7 +21,6 @@
             'project-card--active': project?.demo || project?.github,
           }"
           :style="{ 'animation-delay': `${index * 0.2}s` }"
-          @click="handleCardClick(index, $event)"
         >
           <div class="project-image-container">
             <div v-if="project.imageType === 'component'">
@@ -49,7 +48,6 @@
                   :href="project.demo"
                   class="project-link"
                   target="_blank"
-                  @click="handleLinkClick($event, visibleOverlays[index])"
                 >
                   <ExternalLinkIcon class="h-5 w-5" />
                 </a>
@@ -58,7 +56,6 @@
                   :href="project.github"
                   class="project-link"
                   target="_blank"
-                  @click="handleLinkClick($event, visibleOverlays[index])"
                 >
                   <GithubIcon class="h-5 w-5" />
                 </a>
@@ -91,39 +88,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { reactive } from "vue";
 import { IMAGES } from "~/public/constants/images";
 
 const visibleOverlays = reactive({});
-const isMobile = ref(false);
-
-onMounted(() => {
-  // Detect if device is mobile/touch
-  isMobile.value = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-});
-
-const handleCardClick = (index, event) => {
-  if (!isMobile.value) return;
-
-  // If overlay is not visible, show it and prevent default behavior
-  if (!visibleOverlays[index]) {
-    event.preventDefault();
-    visibleOverlays[index] = true;
-
-    // Hide overlay after 3 seconds of inactivity
-    setTimeout(() => {
-      visibleOverlays[index] = false;
-    }, 3000);
-  }
-};
-
-const handleLinkClick = (event, overlayVisible) => {
-  // On mobile, prevent link click if overlay is not visible
-  if (isMobile.value && !overlayVisible) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-};
 
 const projects = [
   {
