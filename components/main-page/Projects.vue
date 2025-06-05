@@ -16,8 +16,12 @@
         <div
           v-for="(project, index) in projects"
           :key="project.id"
-          class="scroll-animate project-card"
+          class="scroll-animate project-card project-disclaimer"
+          :class="{
+            'project-card--active': project?.demo || project?.github,
+          }"
           :style="{ 'animation-delay': `${index * 0.2}s` }"
+          @click="handleCardClick(index, $event)"
         >
           <div class="project-image-container">
             <div v-if="project.imageType === 'component'">
@@ -35,13 +39,17 @@
               />
             </div>
 
-            <div class="project-overlay">
+            <div
+              class="project-overlay"
+              :class="{ 'overlay-visible': visibleOverlays[index] }"
+            >
               <div class="project-links">
                 <a
                   v-if="project.demo"
                   :href="project.demo"
                   class="project-link"
                   target="_blank"
+                  @click="handleLinkClick($event, visibleOverlays[index])"
                 >
                   <ExternalLinkIcon class="h-5 w-5" />
                 </a>
@@ -50,6 +58,7 @@
                   :href="project.github"
                   class="project-link"
                   target="_blank"
+                  @click="handleLinkClick($event, visibleOverlays[index])"
                 >
                   <GithubIcon class="h-5 w-5" />
                 </a>
@@ -82,7 +91,39 @@
 </template>
 
 <script setup>
+import { ref, reactive, onMounted } from "vue";
 import { IMAGES } from "~/public/constants/images";
+
+const visibleOverlays = reactive({});
+const isMobile = ref(false);
+
+onMounted(() => {
+  // Detect if device is mobile/touch
+  isMobile.value = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+});
+
+const handleCardClick = (index, event) => {
+  if (!isMobile.value) return;
+
+  // If overlay is not visible, show it and prevent default behavior
+  if (!visibleOverlays[index]) {
+    event.preventDefault();
+    visibleOverlays[index] = true;
+
+    // Hide overlay after 3 seconds of inactivity
+    setTimeout(() => {
+      visibleOverlays[index] = false;
+    }, 3000);
+  }
+};
+
+const handleLinkClick = (event, overlayVisible) => {
+  // On mobile, prevent link click if overlay is not visible
+  if (isMobile.value && !overlayVisible) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+};
 
 const projects = [
   {
@@ -232,12 +273,47 @@ const projects = [
   transition: opacity 0.3s ease;
 }
 
+.project-overlay.overlay-visible {
+  opacity: 1;
+}
+
+.project-card:not(.project-card--active):hover .project-overlay {
+  opacity: 0;
+}
+
 .project-card:hover .project-overlay {
   opacity: 1;
 }
 
 .project-card:hover .project-image {
   transform: scale(1.1);
+}
+
+.project-disclaimer::after {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10;
+}
+
+.project-card:not(.project-card--active)::after {
+  content: "🚫 No links available";
+}
+
+.project-card--active::after {
+  content: "🖱️ Hover to view links";
+}
+
+/* Mobile/touch behavior */
+@media (hover: none) and (pointer: coarse) {
+  .project-card--active::after {
+    content: "👆 Tap to view links";
+  }
 }
 
 .project-links {
