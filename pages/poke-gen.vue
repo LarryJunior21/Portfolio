@@ -1,9 +1,7 @@
 <template>
   <UiAnimatedBackground />
 
-  <div
-    class="flex justify-center min-h-screen pt-28 py-12 px-0 sm:px-6 lg:px-8 relative"
-  >
+  <div class="generator-shell flex min-h-screen justify-center px-4 pb-20 pt-32 sm:px-6 lg:px-8 relative">
     <div
       class="flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg"
     >
@@ -453,8 +451,6 @@
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { useCardAssets } from '~/composables/card-assets';
-
-// const { handleLogin } = useLogin();
 
 const {
   pokemonName,

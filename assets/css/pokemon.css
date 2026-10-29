@@ -1,9 +1,23 @@
+.generator-shell {
+  background: radial-gradient(circle at 15% 10%, hsl(157 78% 76% / .08), transparent 28%), hsl(225 24% 7%);
+}
+.generator-shell > div {
+  background: hsl(225 21% 11% / .88) !important;
+  border: 1px solid hsl(225 14% 22%);
+  box-shadow: 0 30px 90px hsl(225 24% 3% / .5);
+}
+.generator-shell input, .generator-shell textarea {
+  background: hsl(225 16% 16%);
+  border-color: hsl(225 14% 26%);
+  color: hsl(40 33% 96%);
+}
+.generator-shell label { color: hsl(220 11% 72%); }
 .pokemon-title {
   font-family: "Pokemon Solid", sans-serif;
-  color: #ffcb05; /* Pokemon yellow */
-  -webkit-text-stroke: 1px #2a75bb; /* Pokemon blue outline */
+  color: hsl(35 100% 70%);
+  -webkit-text-stroke: 1px hsl(157 78% 76%);
   letter-spacing: 2px;
-  text-shadow: 2px 2px 0 #3c5aa6; /* Pokemon blue shadow */
+  text-shadow: 2px 2px 0 hsl(225 24% 7%);
 }
 
 .stroked-text {
