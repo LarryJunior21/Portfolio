@@ -1,9 +1,10 @@
 <template>
   <UiAnimatedBackground />
+  <div class="poke-scroll-progress" :style="{ width: `${scrollProgress}%` }" aria-hidden="true" />
 
   <div class="generator-shell flex min-h-screen justify-center px-4 pb-20 pt-32 sm:px-6 lg:px-8 relative">
     <div
-      class="flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg"
+      class="poke-panel flex w-[100%] sm:w-[80%] py-8 px-0 sm:px-8 bg-gray-100 rounded-2xl shadow-lg"
     >
       <div class="max-w-4xl mx-auto grid items-center">
         <h1
@@ -493,6 +494,21 @@ const {
 
 const { imageUploader, croppedPokemonImage, handleImageUpload } =
   useImageUpload();
+
+const scrollProgress = ref(0);
+const updateScrollProgress = () => {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  scrollProgress.value = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+};
+
+onMounted(() => {
+  updateScrollProgress();
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateScrollProgress);
+});
 
 const limitInput = () => {
   // Convert the value to a string to prevent exceeding 6 digits
