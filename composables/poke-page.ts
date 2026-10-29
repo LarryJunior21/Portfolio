@@ -3,7 +3,9 @@ import type { PokeCard } from "../types/poke-type";
 
 export const usePoke = () => {
   /* ---------------------CONSTS AND STATES - START--------------------------- */
-  const store = usePokeStore();
+  // Pass Nuxt's active Pinia instance explicitly so this composable also works
+  // when invoked through another composable during page setup.
+  const store = usePokeStore(usePinia());
   const { cardTypes, Xtype, Plustype, Minustype } = useCardAssets();
   const { croppedPokemonImage } = useImageUpload();
 
